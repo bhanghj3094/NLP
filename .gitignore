@@ -1,0 +1,17 @@
+# python
+venv/
+*/pycache/*
+
+# materials
+*.pdf
+*.png
+*.doc
+*.docx
+
+# env
+.vscode
+.idea
+
+# misc
+.DS_Store
+.env
