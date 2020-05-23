@@ -3,9 +3,12 @@
 
 import nltk
 from nltk.corpus import wordnet as wn
+from nltk.corpus import brown, cmudict
 
 # Globals
 heteronyms = dict()
+tagged_sentences = brown.tagged_sents()
+pronounce = cmudict.dict()
 
 
 def add_heteronyms(heteronyms):
