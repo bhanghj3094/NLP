@@ -7,11 +7,12 @@ from nltk.corpus import brown, cmudict
 
 # Globals
 heteronyms = dict()
+heteronym_keys = []
 tagged_sentences = brown.tagged_sents()
 pronounce = cmudict.dict()
 
 
-def add_heteronyms(heteronyms):
+def get_heteronyms(heteronyms, heteronym_keys):
     """
     Add heteronyms from wordnet synsets.
     Update dictionary of heteronyms. 
@@ -26,13 +27,14 @@ def add_heteronyms(heteronyms):
             (synset.pos(), synset.definition())
             for synset in wn.synsets(lemma_name)
         ]
+    heteronym_keys.extend(heteronyms.keys())
 
 
 # Main function for word processing algorithm. 
 def main():
     """
     """
-    add_heteronyms(heteronyms)
+    get_heteronyms(heteronyms, heteronym_keys)
 
 
 if __name__ == "__main__":
