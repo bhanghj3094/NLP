@@ -18,8 +18,12 @@ cdict = cmudict.dict()
 
 
 def get_heteronyms():
+    """Get heteronym list.
+
+    If `heteronyms.txt` exists, parse it and return. 
+    Else, build heteronym list.
     """
-    """
+    file_name = 'heteronyms.txt'
     # Candidate for heteronyms
     heteronym_keys.extend([ word
         for word, pronounciations in cdict.items()
@@ -30,7 +34,7 @@ def get_heteronyms():
     ])
 
     # Web crawling
-    file = open("result.txt", "a")
+    file = open(file_name, "a")
     for idx, word in enumerate(heteronym_keys):
         entry = get_heteronym_entry(word)
         # Insert to dictionary
@@ -42,19 +46,30 @@ def get_heteronyms():
 
 
 def get_heteronym_entry(word):
-    """
-    Return list of pronounciations, part-of-speeches, and meanings.
-    [
-        {
-            pronounciation: [
-                (part-of-speech1, meaning1-1),
-                (part-of-speech1, meaning1-2),
-                (part-of-speech2, meaning2-1),
+    """Web crawler to verify heteronym.
+
+    Args:
+        word (String): candidate `word` for heteronym. 
+    
+    Returns:
+        List: Build heteronym entry. List of pronounciations dictionary, 
+            with each entry as list of part-of-speech and meaning tuple. 
+            If no entry exists, return empty list. 
+            [
+                {
+                    pronounciation: [
+                        (part-of-speech1, meaning1-1),
+                        (part-of-speech1, meaning1-2),
+                        (part-of-speech2, meaning2-1),
+                        ...
+                    ], ...
+                },
                 ...
-            ], ...
-        },
-        ...
-    ]
+            ]
+
+    Raises:
+        Exception: HTTPError except 404. 
+        AttributeError: No required attribute for word in web.
     """
     # urllib
     url = "https://www.lexico.com/en/definition/"
@@ -90,7 +105,8 @@ def get_heteronym_entry(word):
             for homograph in homographs
         ]
         # not a heteronym, but homograph
-        if len(set(pronounciations)) == 1: return []
+        if len(set(pronounciations)) == 1: 
+            return []
 
         for idx, homograph in enumerate(homographs):
             # grambs: for each pronounciation, for each part-of-speech
@@ -108,8 +124,9 @@ def get_heteronym_entry(word):
                 pos = gramb.h3.find(class_="pos").get_text()
                 
                 # search only direct children
-                meaning_list.extend([ (
-                        pos, 
+                meaning_list.extend([ 
+                    (
+                        pos,
                         meaning.find(class_="trg").p.find(class_="ind").get_text()
                     )
                     for meaning in gramb.ul.find_all("li", recursive=False)
