@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 from bs4 import BeautifulSoup
 # Misc
 import time, os
+from collections import defaultdict
 from pprint import pprint
 
 
@@ -18,7 +19,7 @@ from pprint import pprint
 heteronym_keys = []
 heteronyms = dict()
 cdict = cmudict.dict()
-tagged_sentences = brown.tagged_sents()
+tagged_sentences = brown.tagged_sents(tagset="universal")
 
 
 def get_heteronyms():
@@ -182,7 +183,7 @@ def search_heteronyms():
     for sentence in tagged_sentences:
         score, result = evaluate(sentence)
         if score != 0:
-            answer.append(score, result)
+            answer.append((score, result))
     return sorted(answer)[::-1]
 
 
@@ -198,29 +199,51 @@ def evaluate(sentence):
     Returns:
         score (Integer): score according to above schemes. 
         result (List): [
-
+            sentence, 
+            "word1/pronounciation1/pos1",
+            "word2/pronounciation2/pos2",
+            ...
         ]
     """
     count = 0
-    occurrence = []
+    occurrence = defaultdict(list)
+    result = [
+        " ".join([word for word, pos in sentence])
+    ]
     for idx, (word, pos) in enumerate(sentence):
         # not heteronym
-        if not word in heteronym_keys:
+        if not word.lower() in heteronym_keys:
             continue
         # scheme 1: increment count
         count += 1
         # find matching pronounciation, pos, definition in heteronym entry
-        het_pro, het_pos, het_def = find_matching_heteronym(idx, sentence)
+        het_pro, het_pos, _ = find_matching_heteronym(idx, sentence)
+        result.append(word + het_pro + het_pos)
         # for scheme 2, 3
-        occurrence.append((word, het_pro, het_pos))
+        occurrence[word.lower()].append(het_pos)
     
     # scheme 2: additional score for heteronyms with same letters
+    homographs = [
+        len(het_poses)
+        for word, het_poses in list(occurrence.items())
+        if len(het_poses) > 1
+    ]
 
     # scheme 3: additional score for heteronyms with same letters and same part-of-speech
+    homoposes = [
+        len(het_poses) - len(set(het_poses))
+        for word, het_poses in list(occurrence.items())
+        if len(het_poses) - len(set(het_poses))
+    ]
+
+    def calculate(list_):
+        value = 1
+        for num in list_:
+            value *= 2 ** num
+        return value
 
     # calculate score, make result
-    score = 0
-    result = []
+    score = (2 ** count) * calculate(homographs) * calculate(homoposes) if count else 0
     return score, result
 
 
@@ -241,13 +264,43 @@ def find_matching_heteronym(idx, sentence):
     """
     # all heteronym entry
     word, pos = sentence[idx]
-    entries = heteronyms[word]
+    entries = heteronyms[word.lower()]
+
+    # heteronym pos to universal
+    het_pos_to_universal = {
+        '': 'X', 
+        'ordinal number': 'NUM', 
+        'adjective': 'ADJ', 
+        'intransitive verb': 'VERB', 
+        'adverb': 'ADV', 
+        'verb': 'VERB', 
+        'noun': 'NOUN', 
+        'transitive verb': 'VERB',
+        'proper noun': 'PROPERNOUN', 
+        'abbreviation': 'ABBR'
+    }
     
     # choose matching pronounciation, pos, definition..
-    
-    het_pro = ""
-    het_pos = ""
-    het_def = ""
+    if idx != 0 and not word.islower():
+        find = []
+        for het_pro, _list in entries:
+            for het_pos, het_def in _list:
+                if het_pos in ['proper noun', 'abbreviation']:
+                    find.append((het_pro, het_pos, het_def))
+        if find:
+            return find[0]
+    else:
+        find = []
+        for het_pro, _list in entries:
+            for het_pos, het_def in _list:
+                if het_pos_to_universal[het_pos] == pos:
+                    find.append((het_pro, het_pos, het_def))
+        if find:
+            return find[0]
+
+    # default match to first one.
+    het_pro, _list = entries[0]
+    het_pos, het_def = _list[0]
     return het_pro, het_pos, het_def
 
 
@@ -260,7 +313,31 @@ def main():
 
     # Find sentences with heteronyms
     answer = search_heteronyms()
-    pprint(answer[:10])
+    pprint(answer[:30])
+
+    # finding all possible het_pos
+    # a = set()
+    # for value in list(heteronyms.values()):
+    #     for pronounce, list_ in value:
+    #         for pos, _ in list_:
+    #             a.add(pos)
+    # print(a)
+
+    # finding most frequent heteronym appearance
+    # def get_count(sentence):
+    #     count = 0
+    #     for word, tag in sentence:
+    #         if word.lower() in heteronym_keys:
+    #             count += 1
+    #     return count
+    # counts = [
+    #     get_count(sentence)
+    #     for sentence in tagged_sentences
+    # ]
+    # print(sorted(counts)[::-1][:100])
+
+    # TODO: filter abbreviation. 
+    # TODO: add lemmatizer and increase occurrences. => if changed with lemmatizer, it is possibly verb. 
 
 
 if __name__ == "__main__":
