@@ -38,7 +38,7 @@ Single occurrence of heteronym is also counted.
 
 For example, 
 
-> contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_ + _'tear(droplet)'_ 
+> contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_ + _'tear(droplet)'_   
 > contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_  
 > ...
 
