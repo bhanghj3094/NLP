@@ -28,6 +28,21 @@ For example,
 > _deathly_ sick  
 > _stark_ contrast
 
+### HW3
+
+Find sentences that has most occurrence of heteronyms.  
+Single occurrence of heteronym is also counted. 
+
+* Homograph: Same letters, different meaning.  
+* Heteronym: Among homographs, different pronounciation. 
+
+For example, 
+
+> contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_ + _'tear(droplet)'_ 
+> contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_  
+> ...
+
+
 ## Environments
 
 Refer to how to setup [here](./setup).
