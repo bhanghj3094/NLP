@@ -217,7 +217,9 @@ def evaluate(sentence):
 
     Several schemes are applied. 
         1. More occurrence of heteronyms gives higher score. 
-        2. More occurrence of heteronyms with same letters gives higher score. 
+        2. More occurrence of heteronyms with same letters gives higher score. But, 
+            it is only for different pronounciations. Lower score is given for same
+            pronounciations. 
         3. More occurrence of heteronyms with same letters and same part-of-speech
             gives higher score. 
     
@@ -246,14 +248,15 @@ def evaluate(sentence):
         het_pro, het_pos, _ = find_matching_heteronym(idx, sentence)
         result.append(word + het_pro + het_pos)
         # for scheme 2, 3
-        occurrence[word.lower()].append(het_pos)
+        occurrence[word.lower()].append((het_pro, het_pos))
     
     # scheme 2: additional score for heteronyms with same letters
-    homographs = [
-        len(het_poses)
-        for word, het_poses in list(occurrence.items())
-        if len(het_poses) > 1
-    ]
+    homographs = []
+    for word, items in list(occurrence.items()):
+        fd = nltk.FreqDist([ het_pro
+            for het_pro, _ in items
+        ])
+        homographs.append(len(het_pro) / fd.most_common(1)[0][1])
 
     # scheme 3: additional score for heteronyms with same letters and same part-of-speech
     homoposes = [
@@ -269,7 +272,7 @@ def evaluate(sentence):
         return value
 
     # calculate score, make result
-    score = (2 ** count) * calculate(homographs) * calculate(homoposes) if count else 0
+    score = (4 ** count) * calculate(homographs) * calculate(homoposes) / len(sentence) if count else 0
     return score, result
 
 
@@ -327,7 +330,13 @@ def find_matching_heteronym(idx, sentence):
                 if het_pos_to_universal[het_pos] == pos:
                     find.append((het_pro, het_pos, het_def))
         if find:
-            return find[0]
+            for idx, element in enumerate(find):
+                het_pro, het_pos, het_def = element
+                count = 0
+                for item in het_def:
+                    if item in sentence: count += 1
+                find[idx] = (2 ** (len(find) - idx) + count, element)
+            return sorted(find)[::-1][0][1]
 
     # default match to first one.
     het_pro, _list = entries[0]
