@@ -4,7 +4,8 @@
 # NLTK
 import nltk
 from nltk.corpus import wordnet as wn
-from nltk.corpus import brown, cmudict
+from nltk.corpus import brown, cmudict, stopwords
+from nltk.stem import WordNetLemmatizer
 # Network
 from urllib import request
 from urllib.error import HTTPError
@@ -18,8 +19,10 @@ from pprint import pprint
 # Globals
 heteronym_keys = []
 heteronyms = dict()
+stopwords_en = stopwords.words('english')
 cdict = cmudict.dict()
 tagged_sentences = brown.tagged_sents(tagset="universal")
+n = WordNetLemmatizer()
 
 
 def get_heteronyms():
@@ -65,6 +68,27 @@ def get_heteronyms():
             entry = eval(line[split_idx + 2:])
             heteronyms[word] = entry
         heteronym_file.close()
+
+    # exclude heteronyms only with abbreviations
+    remove = []
+    for heteronym in heteronyms:
+        entries = heteronyms[heteronym]
+        for idx, entry in enumerate(entries):
+            pron, list_ = entry
+            new_list_ = [ e
+                for e in list_
+                if e[0] != 'abbreviation'
+            ]
+            entries[idx] = (pron, new_list_)
+        new_entries = [ entry
+            for entry in entries
+            if len(entry[1]) != 0
+        ]
+        heteronyms[heteronym] = new_entries
+        if len(new_entries) == 1 or heteronym in stopwords_en:
+            remove.append(heteronym)
+    for e in remove:
+        del heteronyms[e]
     
     heteronym_keys.extend(list(heteronyms.keys()))
 
@@ -212,7 +236,8 @@ def evaluate(sentence):
     ]
     for idx, (word, pos) in enumerate(sentence):
         # not heteronym
-        if not word.lower() in heteronym_keys:
+        lemmatized_word = n.lemmatize(word.lower(), 'v') if pos == "VERB" else word.lower()
+        if not lemmatized_word in heteronym_keys:
             continue
         # scheme 1: increment count
         count += 1
@@ -264,7 +289,8 @@ def find_matching_heteronym(idx, sentence):
     """
     # all heteronym entry
     word, pos = sentence[idx]
-    entries = heteronyms[word.lower()]
+    lemmatized_word = n.lemmatize(word.lower(), 'v') if pos == "VERB" else word.lower()
+    entries = heteronyms[lemmatized_word]
 
     # heteronym pos to universal
     het_pos_to_universal = {
@@ -276,6 +302,10 @@ def find_matching_heteronym(idx, sentence):
         'verb': 'VERB', 
         'noun': 'NOUN', 
         'transitive verb': 'VERB',
+        'auxiliary verb': 'VERB',
+        'conjunction': 'CONJ',
+        'preposition': 'ADP',
+        'pronoun': 'PRON',
         'proper noun': 'PROPERNOUN', 
         'abbreviation': 'ABBR'
     }
@@ -285,7 +315,7 @@ def find_matching_heteronym(idx, sentence):
         find = []
         for het_pro, _list in entries:
             for het_pos, het_def in _list:
-                if het_pos in ['proper noun', 'abbreviation']:
+                if het_pos == 'proper noun':
                     find.append((het_pro, het_pos, het_def))
         if find:
             return find[0]
@@ -335,9 +365,6 @@ def main():
     #     for sentence in tagged_sentences
     # ]
     # print(sorted(counts)[::-1][:100])
-
-    # TODO: filter abbreviation. 
-    # TODO: add lemmatizer and increase occurrences. => if changed with lemmatizer, it is possibly verb. 
 
 
 if __name__ == "__main__":
