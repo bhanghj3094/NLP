@@ -17,8 +17,8 @@ from pprint import pprint
 # Globals
 heteronym_keys = []
 heteronyms = dict()
-# tagged_sentences = brown.tagged_sents()
 cdict = cmudict.dict()
+tagged_sentences = brown.tagged_sents()
 
 
 def get_heteronyms():
@@ -26,21 +26,25 @@ def get_heteronyms():
 
     If `heteronyms.txt` exists, parse it and return. 
     Else, build heteronym list.
+
+    Updates:
+        heteronyms (Dictionary)
+        heteronym_keys (List)
     """
     file_name = 'heteronyms.txt'
     if not os.path.isfile(file_name):
         # Candidate for heteronyms
-        heteronym_keys.extend([ word
+        candidates = [ word
             for word, pronounciations in cdict.items()
             # Has different pronounciations
             if len(pronounciations) >= 2
             # Has more than one meaning
             if len(wn.synsets(word)) >= 2
-        ])
+        ]
 
         # Web crawling
         file = open(file_name, "a")
-        for idx, word in enumerate(heteronym_keys):
+        for idx, word in enumerate(candidates):
             entry = get_heteronym_entry(word)
             # Insert to dictionary
             if entry:
@@ -60,7 +64,8 @@ def get_heteronyms():
             entry = eval(line[split_idx + 2:])
             heteronyms[word] = entry
         heteronym_file.close()
-    heteronym_keys = list(heteronyms.keys())
+    
+    heteronym_keys.extend(list(heteronyms.keys()))
 
 
 def get_heteronym_entry(word):
@@ -70,18 +75,18 @@ def get_heteronym_entry(word):
         word (String): candidate `word` for heteronym. 
     
     Returns:
-        List: Build heteronym entry. List of pronounciations dictionary, 
+        results (List): Build heteronym entry. List of pronounciations dictionary, 
             with each entry as list of part-of-speech and meaning tuple. 
             If no entry exists, return empty list. 
             [
-                {
+                (
                     pronounciation: [
                         (part-of-speech1, meaning1-1),
                         (part-of-speech1, meaning1-2),
                         (part-of-speech2, meaning2-1),
                         ...
                     ], ...
-                },
+                ),
                 ...
             ]
 
@@ -164,11 +169,98 @@ def get_heteronym_entry(word):
     return list(result.items())
 
 
+def search_heteronyms():
+    """Find and evaluate heteronyms for all sentences. 
+
+    Returns:
+        answer (List): Sorted in order of high score.
+        [
+            (score, result), ...
+        ]
+    """
+    answer = []
+    for sentence in tagged_sentences:
+        score, result = evaluate(sentence)
+        if score != 0:
+            answer.append(score, result)
+    return sorted(answer)[::-1]
+
+
+def evaluate(sentence):
+    """Evaluate each sentence. 
+
+    Several schemes are applied. 
+        1. More occurrence of heteronyms gives higher score. 
+        2. More occurrence of heteronyms with same letters gives higher score. 
+        3. More occurrence of heteronyms with same letters and same part-of-speech
+            gives higher score. 
+    
+    Returns:
+        score (Integer): score according to above schemes. 
+        result (List): [
+
+        ]
+    """
+    count = 0
+    occurrence = []
+    for idx, (word, pos) in enumerate(sentence):
+        # not heteronym
+        if not word in heteronym_keys:
+            continue
+        # scheme 1: increment count
+        count += 1
+        # find matching pronounciation, pos, definition in heteronym entry
+        het_pro, het_pos, het_def = find_matching_heteronym(idx, sentence)
+        # for scheme 2, 3
+        occurrence.append((word, het_pro, het_pos))
+    
+    # scheme 2: additional score for heteronyms with same letters
+
+    # scheme 3: additional score for heteronyms with same letters and same part-of-speech
+
+    # calculate score, make result
+    score = 0
+    result = []
+    return score, result
+
+
+def find_matching_heteronym(idx, sentence):
+    """Find matching heteronym for the word in sentence. 
+
+    Consult pos given along with word in sentence, and 
+    context and meaning is compared to find right `match`.
+
+    Args:
+        idx (Integer): idx for the word we want to match. 
+        sentence (List): sentence to get context and pos. 
+    
+    Returns: 
+        het_pro (String): heteronym pronounciation. 
+        het_pos (String): heteronym part-of-speech. 
+        het_def (String): heteronym definition. 
+    """
+    # all heteronym entry
+    word, pos = sentence[idx]
+    entries = heteronyms[word]
+    
+    # choose matching pronounciation, pos, definition..
+    
+    het_pro = ""
+    het_pos = ""
+    het_def = ""
+    return het_pro, het_pos, het_def
+
+
 # Main function for word processing algorithm. 
 def main():
     """
     """
+    # Build heteronym list
     get_heteronyms()
+
+    # Find sentences with heteronyms
+    answer = search_heteronyms()
+    pprint(answer[:10])
 
 
 if __name__ == "__main__":
