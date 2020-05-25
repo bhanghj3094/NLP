@@ -207,6 +207,7 @@ def search_heteronyms():
     for sentence in tagged_sentences:
         score, result = evaluate(sentence)
         if score != 0:
+            result.insert(1, "Brown")
             answer.append((score, result))
     return sorted(answer)[::-1]
 
@@ -334,10 +335,15 @@ def find_matching_heteronym(idx, sentence):
     return het_pro, het_pos, het_def
 
 
+def save(answer):
+    file = open('CS372_HW3_output_20170305.csv', 'w')
+    for score, result in answer:
+        file.write(",".join(result) + "\n")
+    file.close()
+
+
 # Main function for word processing algorithm. 
 def main():
-    """
-    """
     # Build heteronym list
     get_heteronyms()
 
@@ -345,26 +351,8 @@ def main():
     answer = search_heteronyms()
     pprint(answer[:30])
 
-    # finding all possible het_pos
-    # a = set()
-    # for value in list(heteronyms.values()):
-    #     for pronounce, list_ in value:
-    #         for pos, _ in list_:
-    #             a.add(pos)
-    # print(a)
-
-    # finding most frequent heteronym appearance
-    # def get_count(sentence):
-    #     count = 0
-    #     for word, tag in sentence:
-    #         if word.lower() in heteronym_keys:
-    #             count += 1
-    #     return count
-    # counts = [
-    #     get_count(sentence)
-    #     for sentence in tagged_sentences
-    # ]
-    # print(sorted(counts)[::-1][:100])
+    # Save to csv
+    save(answer[:30])
 
 
 if __name__ == "__main__":
