@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# NLTK
 import nltk
 from nltk.corpus import wordnet as wn
 from nltk.corpus import brown, cmudict
+# Network
 from urllib import request
 from urllib.error import HTTPError
 from bs4 import BeautifulSoup
+# Misc
+import time, os
 from pprint import pprint
-import time
+
 
 # Globals
 heteronym_keys = []
@@ -24,25 +28,39 @@ def get_heteronyms():
     Else, build heteronym list.
     """
     file_name = 'heteronyms.txt'
-    # Candidate for heteronyms
-    heteronym_keys.extend([ word
-        for word, pronounciations in cdict.items()
-        # Has different pronounciations
-        if len(pronounciations) >= 2
-        # Has more than one meaning
-        if len(wn.synsets(word)) >= 2
-    ])
+    if not os.path.isfile(file_name):
+        # Candidate for heteronyms
+        heteronym_keys.extend([ word
+            for word, pronounciations in cdict.items()
+            # Has different pronounciations
+            if len(pronounciations) >= 2
+            # Has more than one meaning
+            if len(wn.synsets(word)) >= 2
+        ])
 
-    # Web crawling
-    file = open(file_name, "a")
-    for idx, word in enumerate(heteronym_keys):
-        entry = get_heteronym_entry(word)
-        # Insert to dictionary
-        if entry:
-            file.write("".join([word, ": ", str(entry), "\n"]))
+        # Web crawling
+        file = open(file_name, "a")
+        for idx, word in enumerate(heteronym_keys):
+            entry = get_heteronym_entry(word)
+            # Insert to dictionary
+            if entry:
+                file.write("".join([word, ": ", str(entry), "\n"]))
+                heteronyms[word] = entry
+            time.sleep(1) # HTTPError code 429: Too Many Requests
+        file.close()
+    else:
+        heteronym_file = open(file_name, 'r')
+        lines = [
+            line.strip()
+            for line in heteronym_file.readlines()
+        ]
+        for line in lines:
+            split_idx = line.find(': ')
+            word = line[:split_idx]
+            entry = eval(line[split_idx + 2:])
             heteronyms[word] = entry
-        time.sleep(1) # HTTPError code 429: Too Many Requests
-    file.close()
+        heteronym_file.close()
+    heteronym_keys = list(heteronyms.keys())
 
 
 def get_heteronym_entry(word):
