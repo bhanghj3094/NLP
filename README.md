@@ -43,6 +43,25 @@ For example,
 > ...
 
 
+### HW4
+
+Extract relations from MEDLINE database. *<X, ACTION, Y>*  
+Collect 100 sentences with annotated relations.  
+Use 80 sentences to train, test module with remaining 20 sentences. 
+
+For example, 
+
+> Inorganic phosphate inhibited HPr kinase but activated HPR phosphatase.  
+> => <Inorganic phosphate, inhibited, HPr kinase>  
+> => <Inorganic phosphate, activated, HPR phosphatase>
+
+> All vasodilators activated K-Cl cotransport in LK SRBCs and HYZ in VSMCs, and this activation was inhibited by calyculin and genistein, two inhibitors of K-Cl cotransport.  
+> => <All vasodilators, activated, K-CI cotransport>  
+> => <All vasodilators, activated, HYZ>  
+> => <this activation, was inhibited by, calyculin> OR <calyculin, inhibited, this activation>  
+> => <this activation, was inhibited by, genistein> OR <genistein, inhibited, this activation>  
+> => <this activation, was inhibited by, two inhibitors> OR <two inhibitors, inhibited, this activation>
+
 ## Environments
 
 Refer to how to setup [here](./setup).
