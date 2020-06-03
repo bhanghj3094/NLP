@@ -1,0 +1,63 @@
+== 5 VERBS: Activate, Inhibit, Bind, Stimulate, Prevent ==
+
+[Activate]
+1. (Metadata) Wu JS, Wang N, Siniscalchi MJ, et al. Complementary interactions between command-like interneurons that function to activate and specify motor programs. J Neurosci. 2014;34(19):6510‐6521. doi:10.1523/JNEUROSCI.5094-13.2014
+(Text) We study two electrically coupled interneurons, cerebral-buccal interneuron-2 (CBI-2) and CBI-11, which activate feeding motor programs in the mollusk Aplysia californica.
+(Tags) <two electrically coupled interneurons, activate, motor programs>
+2. (Metadata) Burgess JD, Lum JAG, Hohwy J, Enticott PG. Echoes on the motor network: how internal motor control structures afford sensory experience. Brain Struct Funct. 2017;222(9):3865‐3888. doi:10.1007/s00429-017-1484-1
+(Text) Often, during daily experiences, hearing peers' actions can activate motor regions of the CNS.
+(Tags) <hearing peers' actions, activate, motor regions>
+3. (Metadata) Sixtus E, Fischer MH, Lindemann O. Finger posing primes number comprehension. Cogn Process. 2017;18(3):237‐248. doi:10.1007/s10339-017-0804-y
+(Text) Canonical finger postures, as used in counting, activate number knowledge, but the exact mechanism for this priming effect is unclear.
+(Tags) <canonical finger postures, activate, number knowledge>
+4. (Metadata) Na HK, Oliynyk S. Effects of physical activity on cancer prevention. Ann N Y Acad Sci. 2011;1229:176‐183. doi:10.1111/j.1749-6632.2011.06105.x
+(Text) Mild oxidative stress caused by moderate physical activity can activate cellular stress response signaling and potentiate cellular antioxidant defense capacity.
+(Tags) <mild oxidative stress, activate, cellular stress response>
+5. (Metadata) Davranche K, Nazarian B, Vidal F, Coull J. Orienting attention in time activates left intraparietal sulcus for both perceptual and motor task goals. J Cogn Neurosci. 2011;23(11):3318‐3330. doi:10.1162/jocn_a_00030
+(Text) In contrast to spatial orienting, temporal orienting preferentially activates left inferior parietal cortex.
+(Tags) <temporal orienting, activates, left inferior parietal cortex>
+6. (Metadata) Gui X, Yang H, Li T, et al. Autophagy induction via STING trafficking is a primordial function of the cGAS pathway. Nature. 2019;567(7747):262‐266. doi:10.1038/s41586-019-1006-9
+(Text) Upon binding DNA, cGAS produces cGAMP that binds to and activates the adaptor protein STING, which then activates the kinases IKK and TBK1 to induce interferons and other cytokines2-6.
+(Tags) <cGAMP, activates, the adaptor protein STING>, <STING, activates, the kinases IKK and TBK1>
+7. (Metadata) Ighodaro OM. Molecular pathways associated with oxidative stress in diabetes mellitus. Biomed Pharmacother. 2018;108:656‐662. doi:10.1016/j.biopha.2018.09.058
+(Text) Increased level of glyceraldehyde-3-P activates two major pro-oxidative pathways in diabetes
+(Tags) <increased level, activates, two major pro-oxidative pathways>
+8. (Metadata) Solano C, Echeverz M, Lasa I. Biofilm dispersion and quorum sensing. Curr Opin Microbiol. 2014;18:96‐104. doi:10.1016/j.mib.2014.02.008
+(Text) The aim of this review is to illustrate, using four bacterial pathogens as examples, the emergent concept that QS activates the biofilm dispersion process.
+(Tags) <QS, activates, the biofilm dispersion process>
+9. (Metadata) Vargas-Ortiz K, Pérez-Vázquez V, Macías-Cervantes MH. Exercise and Sirtuins: A Way to Mitochondrial Health in Skeletal Muscle. Int J Mol Sci. 2019;20(11):2717. Published 2019 Jun 3. doi:10.3390/ijms20112717
+(Text) ARID5B is one of the critical downstream targets of TAL1, which further activates the oncogenic regulatory circuit in T-ALL cells.
+(Tags) <TAL1, activates, the oncogenic regulatory circuit>
+10. (Metadata) Singh J, Aballay A. Microbial Colonization Activates an Immune Fight-and-Flight Response via Neuroendocrine Signaling. Dev Cell. 2019;49(1):89‐99.e4. doi:10.1016/j.devcel.2019.02.001
+(Text) Bloating of the intestinal lumen also activates a broad innate immune response, even in the absence of bacterial pathogens or live bacteria.
+(Tags) <bloating, activates, a broad innate immune response>
+11. (Metadata) Carver BS, Chapinski C, Wongvipat J, et al. Reciprocal feedback regulation of PI3K and androgen receptor signaling in PTEN-deficient prostate cancer. Cancer Cell. 2011;19(5):575‐586. doi:10.1016/j.ccr.2011.04.008
+(Text) Similarly, AR inhibition activates AKT signaling by reducing levels of the AKT phosphatase PHLPP.
+(Tags) <AR inhibition, activates, AKT signaling>
+12. (Metadata) Naito AT, Sumida T, Nomura S, et al. Complement C1q activates canonical Wnt signaling and promotes aging-related phenotypes [published correction appears in Cell. 2012 Aug 3;150(3):659-60]. Cell. 2012;149(6):1298‐1313. doi:10.1016/j.cell.2012.03.047
+(Text) C1q activates canonical Wnt signaling by binding to Frizzled receptors and subsequently inducing C1s-dependent cleavage of the ectodomain of Wnt coreceptor low-density lipoprotein receptor-related protein 6.
+(Tags) <C1q, activates, canonical Wnt signaling>
+13. (Metadata) Chui AJ, Okondo MC, Rao SD, et al. N-terminal degradation activates the NLRP1B inflammasome. Science. 2019;364(6435):82‐85. doi:10.1126/science.aau1208
+(Text) Intracellular pathogens and danger signals trigger the formation of inflammasomes, which activate inflammatory caspases and induce pyroptosis.
+(Tags) <inflammasomes, activate, inflammatory caspases>
+14. (Metadata) Warren J, Im M, Ballesteros A, et al. Activation of latent transforming growth factor-β1, a conserved function for pregnancy-specific beta 1-glycoproteins. Mol Hum Reprod. 2018;24(12):602‐612. doi:10.1093/molehr/gay044
+(Text) All human PSGs and murine PSG23 activated latent TGF-β1.
+(Tags) <all human PSGs and murine PSG23, activated, latent TGF-β1>
+15. (Metadata) Garcia De Las Bayonas A, Philippe JM, Lellouch AC, Lecuit T. Distinct RhoGEFs Activate Apical and Junctional Contractility under Control of G Proteins during Epithelial Morphogenesis. Curr Biol. 2019;29(20):3370‐3385.e7. doi:10.1016/j.cub.2019.08.017
+(Text) We report that distinct guanine exchange factors (GEFs) activate Rho1 in these two cellular compartments.
+(Tags) <distinct guanine exchange factors (GEFs), activate, Rho1>
+16. (Metadata) Dickson K, Lehmann C. Inflammatory Response to Different Toxins in Experimental Sepsis Models. Int J Mol Sci. 2019;20(18):4341. Published 2019 Sep 5. doi:10.3390/ijms20184341
+(Text) These molecules activate different signaling pathways and produce different physiological responses which can be taken advantage of for sepsis modeling.
+(Tags) <These molecules, activate, different signaling pathways>
+17. (Metadata) Sanchez-Delgado G, Martinez-Tellez B, Olza J, Aguilera CM, Gil Á, Ruiz JR. Role of Exercise in the Activation of Brown Adipose Tissue. Ann Nutr Metab. 2015;67(1):21‐32. doi:10.1159/000437173
+(Text) In this review, we postulate that exercise might activate and recruit human BAT through the activation of SNS, heart and skeletal muscle.
+(Tags) <exercise, activate, human BAT>
+18. (Metadata) Bosch NC, Voll RE, Voskens CJ, et al. NF-κB activation triggers NK-cell stimulation by monocyte-derived dendritic cells. Ther Adv Med Oncol. 2019;11:1758835919891622. Published 2019 Dec 11. doi:10.1177/1758835919891622
+(Text) In this study, we examined whether such dendritic cells could activate autologous NK cells.
+(Tags) <such dendritic cells, activate, autologous NK cells>
+19. (Metadata) Di Ceglie I, Kruisbergen NNL, van den Bosch MHJ, van Lent PLEM. Fc-gamma receptors and S100A8/A9 cause bone erosion during rheumatoid arthritis. Do they act as partners in crime?. Rheumatology (Oxford). 2019;58(8):1331‐1343. doi:10.1093/rheumatology/kez218
+(Text) Interestingly, ICs can also directly activate osteoclasts by binding to FcγRs on their surface.
+(Tags) <ICs, activate, osteoclasts>
+20. (Metadata) Law NC, White MF, Hunzicker-Dunn ME. G protein-coupled receptors (GPCRs) That Signal via Protein Kinase A (PKA) Cross-talk at Insulin Receptor Substrate 1 (IRS1) to Activate the phosphatidylinositol 3-kinase (PI3K)/AKT Pathway. J Biol Chem. 2016;291(53):27160‐27169. doi:10.1074/jbc.M116.763235
+(Text) G protein-coupled receptors (GPCRs) activate PI3K/v-AKT thymoma viral oncoprotein (AKT) to regulate many cellular functions that promote cell survival, proliferation, and growth.
+(Tags) <G protein-coupled receptors (GPCRs), activate, PI3K/v-AKT thymoma viral oncoprotein (AKT)>
