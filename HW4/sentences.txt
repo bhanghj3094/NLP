@@ -61,3 +61,251 @@
 20. (Metadata) Law NC, White MF, Hunzicker-Dunn ME. G protein-coupled receptors (GPCRs) That Signal via Protein Kinase A (PKA) Cross-talk at Insulin Receptor Substrate 1 (IRS1) to Activate the phosphatidylinositol 3-kinase (PI3K)/AKT Pathway. J Biol Chem. 2016;291(53):27160‐27169. doi:10.1074/jbc.M116.763235
 (Text) G protein-coupled receptors (GPCRs) activate PI3K/v-AKT thymoma viral oncoprotein (AKT) to regulate many cellular functions that promote cell survival, proliferation, and growth.
 (Tags) <G protein-coupled receptors (GPCRs), activate, PI3K/v-AKT thymoma viral oncoprotein (AKT)>
+=======================================
+[Inhibit]
+1. (Metadata) Sun W, Meednu N, Rosenberg A, et al. B cells inhibit bone formation in rheumatoid arthritis by suppressing osteoblast differentiation. Nat Commun. 2018;9(1):5127. Published 2018 Dec 3. doi:10.1038/s41467-018-07626-8
+(Text) Thus, B cells inhibit bone formation in RA by producing multiple OB inhibitors.
+(Tags) <B cells, inhibit, bone formation>
+2. (Metadata) Girotti MR, Lopes F, Preece N, et al. Paradox-breaking RAF inhibitors that also target SRC are effective in drug-resistant BRAF mutant melanoma [published correction appears in Cancer Cell. 2017 Mar 13;31(3):466]. Cancer Cell. 2015;27(1):85‐96. doi:10.1016/j.ccell.2014.11.006
+(Text) These compounds do not drive paradoxical pathway activation and inhibit MEK/ERK in BRAF and NRAS mutant melanoma.
+(Tags) <These compounds, inhibit, MEK/ERK>
+3. (Metadata) Brogden KA. Antimicrobial peptides: pore formers or metabolic inhibitors in bacteria?. Nat Rev Microbiol. 2005;3(3):238‐250. doi:10.1038/nrmicro1098
+(Text) In fact several observations suggest that translocated peptides can alter cytoplasmic membrane septum formation, inhibit cell-wall synthesis, inhibit nucleic-acid synthesis, inhibit protein synthesis or inhibit enzymatic activity.
+(Tags) <translocated peptides, inhibit, cell-wall synthesis, nucleic-acid synthesis, protein synthesis or enzymatic activity>
+4. (Metadata) Ahmed OM, Avila-Herrera A, Tun KM, et al. Evolution of Mechanisms that Control Mating in Drosophila Males. Cell Rep. 2019;27(9):2527‐2536.e4. doi:10.1016/j.celrep.2019.04.104
+(Text) Genetically wired neural mechanisms inhibit mating between species because even naive animals rarely mate with other species.
+(Tags) <Genetically wired neural mechanisms, inhibit, mating>
+5. (Metadata) Smith N, Pietrancosta N, Davidson S, et al. Natural amines inhibit activation of human plasmacytoid dendritic cells through CXCR4 engagement. Nat Commun. 2017;8:14253. Published 2017 Feb 9. doi:10.1038/ncomms14253
+(Text) Here we show that natural monoamines and synthetic amines inhibit pDC activation by RNA viruses.
+(Tags) <natural monoamines and synthetic amines, inhibit, pDC activation>
+6. (Metadata) DeWaal D, Nogueira V, Terry AR, et al. Hexokinase-2 depletion inhibits glycolysis and induces oxidative phosphorylation in hepatocellular carcinoma and sensitizes to metformin [published correction appears in Nat Commun. 2018 Jun 26;9(1):2539]. Nat Commun. 2018;9(1):446. Published 2018 Jan 31. doi:10.1038/s41467-017-02733-4
+(Text) Hepatic HK2 deletion inhibits tumor incidence in a mouse model of hepatocarcinogenesis.
+(Tags) <Hepatic HK2 deletion, inhibits, tumor incidence>
+7. (Metadata) Yang JS, Hsu JW, Park SY, et al. GAPDH inhibits intracellular pathways during starvation for cellular energy homeostasis. Nature. 2018;561(7722):263‐267. doi:10.1038/s41586-018-0475-6
+(Text) GAPDH inhibits multiple other transport pathways, also by targeting ARF GAPs.
+(Tags) <GAPDH, inhibits, multiple other transport pathways>
+8. (Metadata) Fink SL, Vojtech L, Wagoner J, et al. The Antiviral Drug Arbidol Inhibits Zika Virus. Sci Rep. 2018;8(1):8989. Published 2018 Jun 12. doi:10.1038/s41598-018-27224-4
+(Text) In the current study, we show that ARB inhibits six different isolates of Zika virus (ZIKV), including African and Asian lineage viruses in multiple cell lines and primary human vaginal and cervical epithelial cells. 
+(Tags) <ARB, inhibits, six different isolates>
+9. (Metadata) Peng SB, Henry JR, Kaufman MD, et al. Inhibition of RAF Isoforms and Active Dimers by LY3009120 Leads to Anti-tumor Activities in RAS or BRAF Mutant Cancers. Cancer Cell. 2015;28(3):384‐398. doi:10.1016/j.ccell.2015.08.002
+(Text) Further analyses demonstrated that LY3009120 also inhibits various forms of RAF dimers including BRAF or CRAF homodimers.
+(Tags) <LY3009120, inhibits, various forms>
+10. (Metadata) Akerström S, Mousavi-Jazi M, Klingström J, Leijon M, Lundkvist A, Mirazimi A. Nitric oxide inhibits the replication cycle of severe acute respiratory syndrome coronavirus. J Virol. 2005;79(3):1966‐1969. doi:10.1128/JVI.79.3.1966-1969.2005
+(Text) The purpose of this study was to examine whether NO inhibits the replication cycle of the severe acute respiratory syndrome coronavirus (SARS CoV) in vitro.
+(Tags) <NO, inhibits, the replication cycle>
+11. (Metadata) Maffioli SI, Zhang Y, Degen D, et al. Antibacterial Nucleoside-Analog Inhibitor of Bacterial RNA Polymerase. Cell. 2017;169(7):1240‐1248.e23. doi:10.1016/j.cell.2017.05.042
+(Text) PUM potently and selectively inhibits bacterial RNAP in vitro, inhibits bacterial growth in culture, and clears infection in a mouse model of Streptococcus pyogenes peritonitis.
+(Tags) <PUM, inhibits, bacterial RNAP and bacterial growth>
+12. (Metadata) Vang Nielsen S, Turnbull KJ, Roghanian M, et al. Serine-Threonine Kinases Encoded by Split hipA Homologs Inhibit Tryptophanyl-tRNA Synthetase. mBio. 2019;10(3):e01138-19. Published 2019 Jun 18. doi:10.1128/mBio.01138-19
+(Text) Consistently, induction of hipT inhibits cell growth and stimulates production of (p)ppGpp.
+(Tags) <induction, inhibits, cell growth>
+13. (Metadata) Ponnusamy A, Sinha S, Hyde GD, et al. FTI-277 inhibits smooth muscle cell calcification by up-regulating PI3K/Akt signaling and inhibiting apoptosis. PLoS One. 2018;13(4):e0196232. Published 2018 Apr 24. doi:10.1371/journal.pone.0196232
+(Text) FTI-277 also inhibits phosphate-induced activation of caspase 3 and apoptosis of VSMC, and these effects are negated by co-incubation with SH6.
+(Tags) <FTI-277, inhibits, phosphate-induced activation and apoptosis>
+14. (Metadata) Qian Y, Gurley BJ, Markowitz JS. The Potential for Pharmacokinetic Interactions Between Cannabis Products and Conventional Medications. J Clin Psychopharmacol. 2019;39(5):462‐471. doi:10.1097/JCP.0000000000001089
+(Text) The isoforms CYP2D6, CYP2C19, CYP2B6, and CYP2J2 are inhibited by THC and CBD.
+(Tags) <isoforms CYP2D6, CYP2C19, CYP2B6, and CYP2J2, are inhibited by, THC and CBD>
+15. (Metadata) Qian J, Le Duff Y, Wang Y, et al. Primate lentiviruses are differentially inhibited by interferon-induced transmembrane proteins. Virology. 2015;474:10‐18. doi:10.1016/j.virol.2014.10.015
+(Text) Interestingly, SIV(AGM) is as much inhibited by human IFITM2 as by IFITM3 of its own host African green monkeys. 
+(Tags) <SIV(AGM), is inhibited by, human IFITM2>
+16. (Metadata) Sekirnik R, Rose NR, Mecinović J, Schofield CJ. 2-Oxoglutarate oxygenases are inhibited by a range of transition metals. Metallomics. 2010;2(6):397‐399. doi:10.1039/c004952b
+(Text) 2-Oxoglutarate oxygenases are inhibited by a range of transition metals, as exemplified by studies on human histone demethylases and prolyl hydroxylase domain 2 (PHD2 or EGLN1).
+(Tags) <2-Oxoglutarate oxygenases, are inhibited by, a range>
+17. (Metadata) MacKay CE, Shaifta Y, Snetkov VV, Francois AA, Ward JPT, Knock GA. ROS-dependent activation of RhoA/Rho-kinase in pulmonary artery: Role of Src-family kinases and ARHGEF1. Free Radic Biol Med. 2017;110:316‐331. doi:10.1016/j.freeradbiomed.2017.06.022
+(Text) RhoA translocation was also inhibited by an ARHGEF1 siRNA.
+(Tags) <RhoA translocation, was inhibited by, ARHGEF1 siRNA>
+18. (Metadata) Tuo Y, Song X, Song Y, et al. Screening probiotics from Lactobacillus strains according to their abilities to inhibit pathogen adhesion and induction of pro-inflammatory cytokine IL-8. J Dairy Sci. 2018;101(6):4822‐4829. doi:10.3168/jds.2017-13654
+(Text) The results showed that the 11 strains could inhibit adhesion of E.
+(Tags) <11 strains, inhibit, adhesion>
+19. (Metadata) Ylitalo R. Bisphosphonates and atherosclerosis. Gen Pharmacol. 2000;35(6):287‐296. doi:10.1016/s0306-3623(01)00121-5
+(Text) Bisphosphonates inhibit the arterial calcification, lipid accumulation and fibrosis.
+(Tags) <bisphosphonates, inhibit, arterial calcification, lipid accumulation and fibrosis>
+20. (Metadata) Maes M, Loyter A, Friedler A. Peptides that inhibit HIV-1 integrase by blocking its protein-protein interactions. FEBS J. 2012;279(16):2795‐2809. doi:10.1111/j.1742-4658.2012.08680.x
+(Text) These molecules specifically inhibit one of the IN-mediated reactions necessary for successful integration.
+(Tags) <these modules, inhibit, one>
+=======================================
+[Bind]
+1. (Metadata) 
+(Text) 
+(Tags) 
+2. (Metadata) 
+(Text) 
+(Tags) 
+3. (Metadata) 
+(Text) 
+(Tags) 
+4. (Metadata) 
+(Text) 
+(Tags) 
+5. (Metadata) 
+(Text) 
+(Tags) 
+6. (Metadata) 
+(Text) 
+(Tags) 
+7. (Metadata) 
+(Text) 
+(Tags) 
+8. (Metadata) 
+(Text) 
+(Tags) 
+9. (Metadata) 
+(Text) 
+(Tags) 
+10. (Metadata) 
+(Text) 
+(Tags) 
+11. (Metadata) 
+(Text) 
+(Tags) 
+12. (Metadata) 
+(Text) 
+(Tags) 
+13. (Metadata) 
+(Text) 
+(Tags) 
+14. (Metadata) 
+(Text) 
+(Tags) 
+15. (Metadata) 
+(Text) 
+(Tags) 
+16. (Metadata) 
+(Text) 
+(Tags) 
+17. (Metadata) 
+(Text) 
+(Tags) 
+18. (Metadata) 
+(Text) 
+(Tags) 
+19. (Metadata) 
+(Text) 
+(Tags) 
+20. (Metadata) 
+(Text) 
+(Tags) 
+=======================================
+[Stimulate]
+1. (Metadata) 
+(Text) 
+(Tags) 
+2. (Metadata) 
+(Text) 
+(Tags) 
+3. (Metadata) 
+(Text) 
+(Tags) 
+4. (Metadata) 
+(Text) 
+(Tags) 
+5. (Metadata) 
+(Text) 
+(Tags) 
+6. (Metadata) 
+(Text) 
+(Tags) 
+7. (Metadata) 
+(Text) 
+(Tags) 
+8. (Metadata) 
+(Text) 
+(Tags) 
+9. (Metadata) 
+(Text) 
+(Tags) 
+10. (Metadata) 
+(Text) 
+(Tags) 
+11. (Metadata) 
+(Text) 
+(Tags) 
+12. (Metadata) 
+(Text) 
+(Tags) 
+13. (Metadata) 
+(Text) 
+(Tags) 
+14. (Metadata) 
+(Text) 
+(Tags) 
+15. (Metadata) 
+(Text) 
+(Tags) 
+16. (Metadata) 
+(Text) 
+(Tags) 
+17. (Metadata) 
+(Text) 
+(Tags) 
+18. (Metadata) 
+(Text) 
+(Tags) 
+19. (Metadata) 
+(Text) 
+(Tags) 
+20. (Metadata) 
+(Text) 
+(Tags) 
+=======================================
+[Prevent]
+1. (Metadata) 
+(Text) 
+(Tags) 
+2. (Metadata) 
+(Text) 
+(Tags) 
+3. (Metadata) 
+(Text) 
+(Tags) 
+4. (Metadata) 
+(Text) 
+(Tags) 
+5. (Metadata) 
+(Text) 
+(Tags) 
+6. (Metadata) 
+(Text) 
+(Tags) 
+7. (Metadata) 
+(Text) 
+(Tags) 
+8. (Metadata) 
+(Text) 
+(Tags) 
+9. (Metadata) 
+(Text) 
+(Tags) 
+10. (Metadata) 
+(Text) 
+(Tags) 
+11. (Metadata) 
+(Text) 
+(Tags) 
+12. (Metadata) 
+(Text) 
+(Tags) 
+13. (Metadata) 
+(Text) 
+(Tags) 
+14. (Metadata) 
+(Text) 
+(Tags) 
+15. (Metadata) 
+(Text) 
+(Tags) 
+16. (Metadata) 
+(Text) 
+(Tags) 
+17. (Metadata) 
+(Text) 
+(Tags) 
+18. (Metadata) 
+(Text) 
+(Tags) 
+19. (Metadata) 
+(Text) 
+(Tags) 
+20. (Metadata) 
+(Text) 
+(Tags) 
