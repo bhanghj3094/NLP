@@ -249,63 +249,63 @@
 (Tags) <Activity-dependent lysosomal fusion, stimulates, dendrite remodeling>
 =======================================
 [Prevent]
-1. (Metadata) 
-(Text) 
-(Tags) 
-2. (Metadata) 
-(Text) 
-(Tags) 
-3. (Metadata) 
-(Text) 
-(Tags) 
-4. (Metadata) 
-(Text) 
-(Tags) 
-5. (Metadata) 
-(Text) 
-(Tags) 
-6. (Metadata) 
-(Text) 
-(Tags) 
-7. (Metadata) 
-(Text) 
-(Tags) 
-8. (Metadata) 
-(Text) 
-(Tags) 
-9. (Metadata) 
-(Text) 
-(Tags) 
-10. (Metadata) 
-(Text) 
-(Tags) 
-11. (Metadata) 
-(Text) 
-(Tags) 
-12. (Metadata) 
-(Text) 
-(Tags) 
-13. (Metadata) 
-(Text) 
-(Tags) 
-14. (Metadata) 
-(Text) 
-(Tags) 
-15. (Metadata) 
-(Text) 
-(Tags) 
-16. (Metadata) 
-(Text) 
-(Tags) 
-17. (Metadata) 
-(Text) 
-(Tags) 
-18. (Metadata) 
-(Text) 
-(Tags) 
-19. (Metadata) 
-(Text) 
-(Tags) 
-20. (Metadata) 
-(Text) 
-(Tags) 
+1. (Metadata) Honda J, Chang SH, Kim K. The effects of vision training, neck musculature strength, and reaction time on concussions in an athletic population. J Exerc Rehabil. 2018;14(5):706‐712. Published 2018 Oct 31. doi:10.12965/jer.1836416.208
+(Text) There are inconclusive results on whether neck musculature strength prevents concussions.
+(Tags) <neck musculature strength, prevents, concussions>
+2. (Metadata) Seitz AP, Schumacher F, Baker J, et al. Sphingosine-coating of plastic surfaces prevents ventilator-associated pneumonia. J Mol Med (Berl). 2019;97(8):1195‐1211. doi:10.1007/s00109-019-01800-1
+(Text) Sphingosine coatings of endotracheal tubes prevent bacterial adherence and biofilms.
+(Tags) <Sphingosine coatings, prevent, bacterial adherence and biofilms>
+3. (Metadata) Runia AJ, Zengerink JF, Mannaerts GH. Easy cleaning of the scope's lens in a syringe to prevent condensation during laparoscopic surgery. Surg Endosc. 2009;23(12):2849‐2850. doi:10.1007/s00464-009-0648-3
+(Text) Anti lens condensation solutions prevent fogging in the intraabdominal environment but are troublesome to apply to the scope.
+(Tags) <Anti lens condensation solutions, prevent, fogging>
+4. (Metadata) Boesch CE, Pronk RF, Medved F, Hentschel P, Schaller HE, Umek W. Do prophylactic antibiotics in gynecologic surgery prevent postoperative inflammatory complications? A systematic review. Arch Gynecol Obstet. 2017;295(6):1383‐1391. doi:10.1007/s00404-017-4382-0
+(Text) Prophylactic antibiotics prevent inflammatory complications after gynaecological surgery.
+(Tags) <Prophylactic antibiotics, prevent, inflammatory complications>
+5. (Metadata) Atoui M, Gunda S, Lakkireddy D, Mahapatra S. Radiofrequency Ablation to Prevent Sudden Cardiac Death. Methodist Debakey Cardiovasc J. 2015;11(2):121‐128. doi:10.14797/mdcj-11-2-121
+(Text) Radiofrequency ablation may prevent or treat atrial and ventricular arrhythmias.
+(Tags) <Radiofrequency ablation, prevent, atrial and ventricular arrhythmias>
+6. (Metadata) Pull CD, Metzler S, Naderlinger E, Cremer S. Protection against the lethal side effects of social immunity in ants. Curr Biol. 2018;28(19):R1139‐R1140. doi:10.1016/j.cub.2018.08.063
+(Text) However, these antimicrobial compounds can be harmful to the insects themselves, and it is unknown how colonies prevent collateral damage when using them.
+(Tags) <colonies, prevent, collateral damage>
+7. (Metadata) Wiker HG, Mustafa T, Målen H, Riise AM. Vaccine approaches to prevent tuberculosis. Scand J Immunol. 2006;64(3):243‐250. doi:10.1111/j.1365-3083.2006.01815.x
+(Text) New vaccines should also prevent development of TB in HIV-infected individuals.
+(Tags) <New vaccines, prevent, development>
+8. (Metadata) Balestrino M, Adriano E. Creatine as a Candidate to Prevent Statin Myopathy. Biomolecules. 2019;9(9):496. Published 2019 Sep 17. doi:10.3390/biom9090496
+(Text) Clinically, creatine administration prevents statin myopathy in statin-intolerant patients.
+(Tags) <creatine administration, prevents, statin myopathy>
+9. (Metadata) Suzuki J, Yamada T, Inoue K, et al. The tumor suppressor menin prevents effector CD8 T-cell dysfunction by targeting mTORC1-dependent metabolic activation. Nat Commun. 2018;9(1):3296. Published 2018 Aug 17. doi:10.1038/s41467-018-05854-6
+(Text) We found that menin prevents the induction of dysfunction in activated CD8 T cells by restricting the cellular metabolism.
+(Tags) <menin, prevents, induction>
+10. (Metadata) Li Y, Lu Y, Wang S, et al. USP21 prevents the generation of T-helper-1-like Treg cells. Nat Commun. 2016;7:13559. Published 2016 Nov 18. doi:10.1038/ncomms13559
+(Text) Our results demonstrate how USP21 prevents FOXP3 protein depletion and controls Treg lineage stability in vivo.
+(Tags) <USP21, prevents, FOXP3 protein depletion>
+11. (Metadata) Giorgetti E, Panesar M, Zhang Y, et al. Modulation of Microglia by Voluntary Exercise or CSF1R Inhibition Prevents Age-Related Loss of Functional Motor Units. Cell Rep. 2019;29(6):1539‐1554.e7. doi:10.1016/j.celrep.2019.10.003
+(Text) Voluntary exercise prevents loss of MUs and reverses microglia activation.
+(Tags) <Voluntary exercise, prevents, loss>
+12. (Metadata) Uebelhart B, Rizzoli R. Ostéoporose [Osteoporosis]. Rev Med Suisse. 2009;5(186):124‐129.
+(Text) Ibandronate prevents bone loss related to the use of anti-aromatase.
+(Tags) <Ibandronate, prevents, bone loss>
+13. (Metadata) Lindner A. Motor Control: Parietal Stimulation Prevents Voluntary Hand Movement. Curr Biol. 2018;28(20):R1200‐R1202. doi:10.1016/j.cub.2018.09.001
+(Text) A new study shows that intra-surgical stimulation of human posterior parietal cortex selectively prevents the initiation and execution of voluntary movement of the contralateral hand.
+(Tags) <intra-surgical stimulation, prevents, initiation and execution>
+14. (Metadata) Marques AP, Cunha-Santos J, Leal H, et al. Dipeptidyl peptidase IV (DPP-IV) inhibition prevents fibrosis in adipose tissue of obese mice. Biochim Biophys Acta Gen Subj. 2018;1862(3):403‐413. doi:10.1016/j.bbagen.2017.11.012
+(Text) Vildagliptin prevents fibrosis formation in adipose tissue in obese mice, at least partially through NPY and NPY Y1 receptor activation.
+(Tags) <Vildagliptin, prevents, fibrosis formation>
+15. (Metadata) Dowland SN, Madawala RJ, Poon CE, Lindsay LA, Murphy CR. Prominin-2 Prevents the Formation of Caveolae in Normal and Ovarian Hyperstimulated Pregnancy. Reprod Sci. 2018;25(8):1231‐1242. doi:10.1177/1933719117737842
+(Text) A recent in vitro study indicated that prominin-2 prevents the formation of caveolae by sequestering membrane cholesterol.
+(Tags) <prominin-2, prevents, formation>
+16. (Metadata) Li L, Wang P, Hu K, et al. PFMG1 promotes osteoblast differentiation and prevents osteoporotic bone loss. FASEB J. 2018;32(2):838‐849. doi:10.1096/fj.201700422R
+(Text) Moreover, PFMG1 prevents bone loss caused by ovariectomy.
+(Tags) <PFMG1, prevents, bone loss>
+17. (Metadata) Roeder GS, Bailis JM. The pachytene checkpoint. Trends Genet. 2000;16(9):395‐403. doi:10.1016/s0168-9525(00)02080-1
+(Text) The pachytene checkpoint prevents meiotic nuclear division in cells that fail to complete meiotic recombination and chromosome synapsis.
+(Tags) <pachytene checkpoint, prevents, meiotic nuclear division>
+18. (Metadata) Morgan Z. Nursing associates. Nurs Stand. 2017;31(20):28. doi:10.7748/ns.31.20.28.s32
+(Text) The degree pathway prevents some individuals from entering nursing.
+(Tags) <degree pathway, prevents, some individuals>
+19. (Metadata) Sessler DI, Imrey PB. Clinical Research Methodology 3: Randomized Controlled Trials. Anesth Analg. 2015;121(4):1052‐1064. doi:10.1213/ANE.0000000000000862
+(Text) Well-implemented blinding prevents measurement bias.
+(Tags) <Well-implemented blinding, prevents, measurement bias>
+20. (Metadata) Zhao X, Zhao G, Shi Z, et al. Low-intensity pulsed ultrasound (LIPUS) prevents periprosthetic inflammatory loosening through FBXL2-TRAF6 ubiquitination pathway. Sci Rep. 2017;7:45779. Published 2017 Apr 5. doi:10.1038/srep45779
+(Text) Results indicated that FBXL2-mediated TRAF6 ubiquitination and degradation also plays an important role in aseptic periprosthetic loosening process, and LIPUS prevents such loosening by strengthening this pathway.
+(Tags) <LIPUS, prevents, such loosening>
