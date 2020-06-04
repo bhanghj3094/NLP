@@ -9,10 +9,10 @@
 (Tags) <hearing peers' actions, activate, motor regions>
 3. (Metadata) Sixtus E, Fischer MH, Lindemann O. Finger posing primes number comprehension. Cogn Process. 2017;18(3):237‐248. doi:10.1007/s10339-017-0804-y
 (Text) Canonical finger postures, as used in counting, activate number knowledge, but the exact mechanism for this priming effect is unclear.
-(Tags) <canonical finger postures, activate, number knowledge>
+(Tags) <Canonical finger postures, activate, number knowledge>
 4. (Metadata) Na HK, Oliynyk S. Effects of physical activity on cancer prevention. Ann N Y Acad Sci. 2011;1229:176‐183. doi:10.1111/j.1749-6632.2011.06105.x
 (Text) Mild oxidative stress caused by moderate physical activity can activate cellular stress response signaling and potentiate cellular antioxidant defense capacity.
-(Tags) <mild oxidative stress, activate, cellular stress response>
+(Tags) <Mild oxidative stress, activate, cellular stress response>
 5. (Metadata) Davranche K, Nazarian B, Vidal F, Coull J. Orienting attention in time activates left intraparietal sulcus for both perceptual and motor task goals. J Cogn Neurosci. 2011;23(11):3318‐3330. doi:10.1162/jocn_a_00030
 (Text) In contrast to spatial orienting, temporal orienting preferentially activates left inferior parietal cortex.
 (Tags) <temporal orienting, activates, left inferior parietal cortex>
@@ -21,7 +21,7 @@
 (Tags) <cGAMP, activates, adaptor protein STING>, <STING, activates, kinases IKK and TBK1>
 7. (Metadata) Ighodaro OM. Molecular pathways associated with oxidative stress in diabetes mellitus. Biomed Pharmacother. 2018;108:656‐662. doi:10.1016/j.biopha.2018.09.058
 (Text) Increased level of glyceraldehyde-3-P activates two major pro-oxidative pathways in diabetes
-(Tags) <increased level, activates, two major pro-oxidative pathways>
+(Tags) <Increased level, activates, two major pro-oxidative pathways>
 8. (Metadata) Solano C, Echeverz M, Lasa I. Biofilm dispersion and quorum sensing. Curr Opin Microbiol. 2014;18:96‐104. doi:10.1016/j.mib.2014.02.008
 (Text) The aim of this review is to illustrate, using four bacterial pathogens as examples, the emergent concept that QS activates the biofilm dispersion process.
 (Tags) <QS, activates, biofilm dispersion process>
@@ -30,7 +30,7 @@
 (Tags) <TAL1, activates, oncogenic regulatory circuit>
 10. (Metadata) Singh J, Aballay A. Microbial Colonization Activates an Immune Fight-and-Flight Response via Neuroendocrine Signaling. Dev Cell. 2019;49(1):89‐99.e4. doi:10.1016/j.devcel.2019.02.001
 (Text) Bloating of the intestinal lumen also activates a broad innate immune response, even in the absence of bacterial pathogens or live bacteria.
-(Tags) <bloating, activates, broad innate immune response>
+(Tags) <Bloating, activates, broad innate immune response>
 11. (Metadata) Carver BS, Chapinski C, Wongvipat J, et al. Reciprocal feedback regulation of PI3K and androgen receptor signaling in PTEN-deficient prostate cancer. Cancer Cell. 2011;19(5):575‐586. doi:10.1016/j.ccr.2011.04.008
 (Text) Similarly, AR inhibition activates AKT signaling by reducing levels of the AKT phosphatase PHLPP.
 (Tags) <AR inhibition, activates, AKT signaling>
@@ -119,10 +119,10 @@
 (Tags) <11 strains, inhibit, adhesion>
 19. (Metadata) Ylitalo R. Bisphosphonates and atherosclerosis. Gen Pharmacol. 2000;35(6):287‐296. doi:10.1016/s0306-3623(01)00121-5
 (Text) Bisphosphonates inhibit the arterial calcification, lipid accumulation and fibrosis.
-(Tags) <bisphosphonates, inhibit, arterial calcification, lipid accumulation and fibrosis>
+(Tags) <Bisphosphonates, inhibit, arterial calcification, lipid accumulation and fibrosis>
 20. (Metadata) Maes M, Loyter A, Friedler A. Peptides that inhibit HIV-1 integrase by blocking its protein-protein interactions. FEBS J. 2012;279(16):2795‐2809. doi:10.1111/j.1742-4658.2012.08680.x
 (Text) These molecules specifically inhibit one of the IN-mediated reactions necessary for successful integration.
-(Tags) <these modules, inhibit, one>
+(Tags) <These modules, inhibit, one>
 =======================================
 [Bind]
 1. (Metadata) McDermott JJ, Watkins KP, Williams-Carrier R, Barkan A. Ribonucleoprotein Capture by in Vivo Expression of a Designer Pentatricopeptide Repeat Protein in Arabidopsis. Plant Cell. 2019;31(8):1723‐1733. doi:10.1105/tpc.19.00177
@@ -139,7 +139,7 @@
 (Tags) <individual monomers, bind, plasminogen>
 5. (Metadata) Emanuelle S, Brewer MK, Meekins DA, Gentry MS. Unique carbohydrate binding platforms employed by the glucan phosphatases [published correction appears in Cell Mol Life Sci. 2016 Jul;73(14):2779]. Cell Mol Life Sci. 2016;73(14):2765‐2778. doi:10.1007/s00018-016-2249-3
 (Text) These enzymes bind and dephosphorylate glycogen in animals and starch in plants. 
-(Tags) <these enzymes, bind, glycogen>
+(Tags) <These enzymes, bind, glycogen>
 6. (Metadata) Yang J, Yan W, Yu Y, et al. The compound millepachine and its derivatives inhibit tubulin polymerization by irreversibly binding to the colchicine-binding site in β-tubulin. J Biol Chem. 2018;293(24):9461‐9472. doi:10.1074/jbc.RA117.001658
 (Text) Here, biochemical and cellular experiments revealed that the MDs directly and irreversibly bind β-tubulin.
 (Tags) <MDs, bind, β-tubulin>
@@ -187,66 +187,66 @@
 (Tags) <TREM2, binds, various polyanionic molecules>
 =======================================
 [Stimulate]
-1. (Metadata) 
-(Text) 
-(Tags) 
-2. (Metadata) 
-(Text) 
-(Tags) 
-3. (Metadata) 
-(Text) 
-(Tags) 
-4. (Metadata) 
-(Text) 
-(Tags) 
-5. (Metadata) 
-(Text) 
-(Tags) 
-6. (Metadata) 
-(Text) 
-(Tags) 
-7. (Metadata) 
-(Text) 
-(Tags) 
-8. (Metadata) 
-(Text) 
-(Tags) 
-9. (Metadata) 
-(Text) 
-(Tags) 
-10. (Metadata) 
-(Text) 
-(Tags) 
-11. (Metadata) 
-(Text) 
-(Tags) 
-12. (Metadata) 
-(Text) 
-(Tags) 
-13. (Metadata) 
-(Text) 
-(Tags) 
-14. (Metadata) 
-(Text) 
-(Tags) 
-15. (Metadata) 
-(Text) 
-(Tags) 
-16. (Metadata) 
-(Text) 
-(Tags) 
-17. (Metadata) 
-(Text) 
-(Tags) 
-18. (Metadata) 
-(Text) 
-(Tags) 
-19. (Metadata) 
-(Text) 
-(Tags) 
-20. (Metadata) 
-(Text) 
-(Tags) 
+1. (Metadata) Rivera-Montalvo T. Diagnostic radiology dosimetry: Status and trends. Appl Radiat Isot. 2016;117:74‐81. doi:10.1016/j.apradiso.2016.03.008
+(Text) Worldwide interest in patient dose measurement was stimulated by the publication of Patient Dose Reduction in Diagnostic Radiology by the UK National Radiological Protection Board (NRPB).
+(Tags) <Worldwide interest, was stimulated by, publication>
+2. (Metadata) Yaffe MJ, Mainprize JG. Detectors for digital mammography. Technol Cancer Res Treat. 2004;3(4):309‐324. doi:10.1177/153303460400300401
+(Text) Interest in digital radiography was stimulated by the enthusiastic acceptance of computed tomography in the early 1970s.
+(Tags) <Interest, was stimulated by, enthusiastic acceptance>
+3. (Metadata) Theoharides TC, Stewart JM, Panagiotidou S, Melamed I. Mast cells, brain inflammation and autism. Eur J Pharmacol. 2016;778:96‐102. doi:10.1016/j.ejphar.2015.03.086
+(Text) CRF and NT synergistically stimulate MCs and increase vascular permeability
+(Tags) <CRF and NT, stimulate, MCs>
+4. (Metadata) Andreou AZ, Harms U, Klostermeier D. Single-stranded regions modulate conformational dynamics and ATPase activity of eIF4A to optimize 5'-UTR unwinding. Nucleic Acids Res. 2019;47(10):5260‐5275. doi:10.1093/nar/gkz254
+(Text) Short RNAs only partially stimulate the eIF4A ATPase activity, and closing is rate-limiting for the conformational cycle. 
+(Tags) <Short RNAs, stimulate, eIF4A ATPase activity>
+5. (Metadata) Kramer D, Lakerveld J, Stronks K, Kunst AE. Uncovering How Urban Regeneration Programs May Stimulate Leisure-time Walking Among Adults in Deprived Areas: A Realist Review. Int J Health Serv. 2017;47(4):703‐724. doi:10.1177/0020731417722087
+(Text) Evidence suggests that urban regeneration programs can stimulate leisure-time walking (LTW) in deprived areas.
+(Tags) <urban regeneration programs, stimulate, leisure-time walking (LTW)>
+6. (Metadata) Kowalski K. Questions That Stimulate Creativity and Innovation. J Contin Educ Nurs. 2017;48(3):102‐103. doi:10.3928/00220124-20170220-04
+(Text) A higher level of questioning can stimulate creativity and innovation. 
+(Tags) <higher level, stimulate, creativity and innovation>
+7. (Metadata) Bochkov VN. Inflammatory profile of oxidized phospholipids. Thromb Haemost. 2007;97(3):348‐354.
+(Text) OxPL stimulate production of chemokines and adhesion of monocytes to endothelial cells.
+(Tags) <OxPL, stimulate, production and adhesion>
+8. (Metadata) Dartt DA. Signal transduction and control of lacrimal gland protein secretion: a review. Curr Eye Res. 1989;8(6):619‐636. doi:10.3109/02713688908995762
+(Text) In the lacrimal gland, cholinergic agonists stimulate protein secretion.
+(Tags) <cholinergic agonists, stimulate, protein secretion>
+9. (Metadata) Nelson DC, Flematti GR, Ghisalberti EL, Dixon KW, Smith SM. Regulation of seed germination and seedling growth by chemical signals from burning vegetation. Annu Rev Plant Biol. 2012;63:107‐130. doi:10.1146/annurev-arplant-042811-105545
+(Text) It is well known that burning of vegetation stimulates new plant growth and landscape regeneration.
+(Tags) <burning, stimulates, new plant growth and landscape regeneration>
+10. (Metadata) Fadok VA. Update on four unusual equine dermatoses. Vet Clin North Am Equine Pract. 1995;11(1):105‐110. doi:10.1016/s0749-0739(17)30335-8
+(Text) More importantly, it is hoped that they stimulate further investigation and research.
+(Tags) <they, stimulate, further investigation and research>
+11. (Metadata) Brindley DN, Abousalham A, Kikuchi Y, Wang CN, Waggoner DW. "Cross talk" between the bioactive glycerolipids and sphingolipids in signal transduction. Biochem Cell Biol. 1996;74(4):469‐476. doi:10.1139/o96-051
+(Text) These three lipids can stimulate cell division.
+(Tags) <These three lipids, stimulate, cell division>
+12. (Metadata) Stone JR, Collins T. The role of hydrogen peroxide in endothelial proliferative responses. Endothelium. 2002;9(4):231‐238. doi:10.1080/10623320214733
+(Text) Low concentrations of H2O2 stimulate proliferation or enhanced survival in a wide variety of cell types.
+(Tags) <Low concentrations, stimulate, proliferation or enhanced survival>
+13. (Metadata) Whitfield JF. How to grow bone to treat osteoporosis and mend fractures. Curr Osteoporos Rep. 2003;1(1):32‐40. doi:10.1007/s11914-003-0006-7
+(Text) This article discusses how PTHs might stimulate bone growth.
+(Tags) <PTHs, stimulate, bone growth>
+14. (Metadata) Howie AJ, Lote CJ. Interactions between renal tubules and interstitium. J Clin Pathol. 1996;49(10):783‐786. doi:10.1136/jcp.49.10.783
+(Text) Damaged tubules can attract inflammatory cells and stimulate interstitial fibrosis, but do not always do so.
+(Tags) <Damaged tubules, stimulate, interstitial fibrosis>
+15. (Metadata) Mishra P, Carelli V, Manfredi G, Chan DC. Proteolytic cleavage of Opa1 stimulates mitochondrial inner membrane fusion and couples fusion to oxidative phosphorylation [published correction appears in Cell Metab. 2014 May 6;19(5):891]. Cell Metab. 2014;19(4):630‐641. doi:10.1016/j.cmet.2014.03.011
+(Text) Proteolytic cleavage therefore stimulates the membrane fusion activity of Opa1, and this feature is exploited to dynamically couple mitochondrial fusion to cellular metabolism.
+(Tags) <Proteolytic cleavage, stimulates, membrane fusion activity>
+16. (Metadata) Tse CM, In JG, Yin J, et al. Enterohemorrhagic E. coli (EHEC)-Secreted Serine Protease EspP Stimulates Electrogenic Ion Transport in Human Colonoid Monolayers. Toxins (Basel). 2018;10(9):351. Published 2018 Sep 1. doi:10.3390/toxins10090351
+(Text) EspP stimulates Isc in HCM.
+(Tags) <EspP, stimulates, Isc>
+17. (Metadata) Ebihara S, Izukura H, Miyagi M, Okuni I, Sekiya H, Ebihara T. Chemical Senses Affecting Cough and Swallowing. Curr Pharm Des. 2016;22(15):2285‐2289. doi:10.2174/1381612822666160216151342
+(Text) Cigarette smoke stimulates the cough reflex, while it inhibits the swallowing reflex.
+(Tags) <Cigarette smoke, stimulates, cough reflex>
+18. (Metadata) Zhu G, Qian M, Lu L, et al. O-GlcNAcylation of YY1 stimulates tumorigenesis in colorectal cancer cells by targeting SLC22A15 and AANAT [published online ahead of print, 2019 Jan 30]. Carcinogenesis. 2019;10.1093/carcin/bgz010. doi:10.1093/carcin/bgz010
+(Text) Also, O-GlcNAcylation stimulates YY1-dependent transcriptional activity.
+(Tags) <O-GlcNAcylation, stimulates, YY1-dependent transcriptional activity>
+19. (Metadata) Kim AR, Park JI, Oh HT, et al. TAZ stimulates liver regeneration through interleukin-6-induced hepatocyte proliferation and inhibition of cell death after liver injury. FASEB J. 2019;33(5):5914‐5923. doi:10.1096/fj.201801256RR
+(Text) We observed that TAZ stimulates liver regeneration after liver injury.
+(Tags) <TAZ, stimulates, liver regeneration>
+20. (Metadata) Gough NR. Lysosomes get into the action. Sci Signal. 2017;10(463):eaam8020. Published 2017 Jan 24. doi:10.1126/scisignal.aam8020
+(Text) Activity-dependent lysosomal fusion with the plasma membrane stimulates dendrite remodeling.
+(Tags) <Activity-dependent lysosomal fusion, stimulates, dendrite remodeling>
 =======================================
 [Prevent]
 1. (Metadata) 
