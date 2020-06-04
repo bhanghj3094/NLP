@@ -18,19 +18,19 @@
 (Tags) <temporal orienting, activates, left inferior parietal cortex>
 6. (Metadata) Gui X, Yang H, Li T, et al. Autophagy induction via STING trafficking is a primordial function of the cGAS pathway. Nature. 2019;567(7747):262‐266. doi:10.1038/s41586-019-1006-9
 (Text) Upon binding DNA, cGAS produces cGAMP that binds to and activates the adaptor protein STING, which then activates the kinases IKK and TBK1 to induce interferons and other cytokines2-6.
-(Tags) <cGAMP, activates, the adaptor protein STING>, <STING, activates, the kinases IKK and TBK1>
+(Tags) <cGAMP, activates, adaptor protein STING>, <STING, activates, kinases IKK and TBK1>
 7. (Metadata) Ighodaro OM. Molecular pathways associated with oxidative stress in diabetes mellitus. Biomed Pharmacother. 2018;108:656‐662. doi:10.1016/j.biopha.2018.09.058
 (Text) Increased level of glyceraldehyde-3-P activates two major pro-oxidative pathways in diabetes
 (Tags) <increased level, activates, two major pro-oxidative pathways>
 8. (Metadata) Solano C, Echeverz M, Lasa I. Biofilm dispersion and quorum sensing. Curr Opin Microbiol. 2014;18:96‐104. doi:10.1016/j.mib.2014.02.008
 (Text) The aim of this review is to illustrate, using four bacterial pathogens as examples, the emergent concept that QS activates the biofilm dispersion process.
-(Tags) <QS, activates, the biofilm dispersion process>
+(Tags) <QS, activates, biofilm dispersion process>
 9. (Metadata) Vargas-Ortiz K, Pérez-Vázquez V, Macías-Cervantes MH. Exercise and Sirtuins: A Way to Mitochondrial Health in Skeletal Muscle. Int J Mol Sci. 2019;20(11):2717. Published 2019 Jun 3. doi:10.3390/ijms20112717
 (Text) ARID5B is one of the critical downstream targets of TAL1, which further activates the oncogenic regulatory circuit in T-ALL cells.
-(Tags) <TAL1, activates, the oncogenic regulatory circuit>
+(Tags) <TAL1, activates, oncogenic regulatory circuit>
 10. (Metadata) Singh J, Aballay A. Microbial Colonization Activates an Immune Fight-and-Flight Response via Neuroendocrine Signaling. Dev Cell. 2019;49(1):89‐99.e4. doi:10.1016/j.devcel.2019.02.001
 (Text) Bloating of the intestinal lumen also activates a broad innate immune response, even in the absence of bacterial pathogens or live bacteria.
-(Tags) <bloating, activates, a broad innate immune response>
+(Tags) <bloating, activates, broad innate immune response>
 11. (Metadata) Carver BS, Chapinski C, Wongvipat J, et al. Reciprocal feedback regulation of PI3K and androgen receptor signaling in PTEN-deficient prostate cancer. Cancer Cell. 2011;19(5):575‐586. doi:10.1016/j.ccr.2011.04.008
 (Text) Similarly, AR inhibition activates AKT signaling by reducing levels of the AKT phosphatase PHLPP.
 (Tags) <AR inhibition, activates, AKT signaling>
@@ -54,7 +54,7 @@
 (Tags) <exercise, activate, human BAT>
 18. (Metadata) Bosch NC, Voll RE, Voskens CJ, et al. NF-κB activation triggers NK-cell stimulation by monocyte-derived dendritic cells. Ther Adv Med Oncol. 2019;11:1758835919891622. Published 2019 Dec 11. doi:10.1177/1758835919891622
 (Text) In this study, we examined whether such dendritic cells could activate autologous NK cells.
-(Tags) <such dendritic cells, activate, autologous NK cells>
+(Tags) <dendritic cells, activate, autologous NK cells>
 19. (Metadata) Di Ceglie I, Kruisbergen NNL, van den Bosch MHJ, van Lent PLEM. Fc-gamma receptors and S100A8/A9 cause bone erosion during rheumatoid arthritis. Do they act as partners in crime?. Rheumatology (Oxford). 2019;58(8):1331‐1343. doi:10.1093/rheumatology/kez218
 (Text) Interestingly, ICs can also directly activate osteoclasts by binding to FcγRs on their surface.
 (Tags) <ICs, activate, osteoclasts>
@@ -66,9 +66,9 @@
 1. (Metadata) Sun W, Meednu N, Rosenberg A, et al. B cells inhibit bone formation in rheumatoid arthritis by suppressing osteoblast differentiation. Nat Commun. 2018;9(1):5127. Published 2018 Dec 3. doi:10.1038/s41467-018-07626-8
 (Text) Thus, B cells inhibit bone formation in RA by producing multiple OB inhibitors.
 (Tags) <B cells, inhibit, bone formation>
-2. (Metadata) Girotti MR, Lopes F, Preece N, et al. Paradox-breaking RAF inhibitors that also target SRC are effective in drug-resistant BRAF mutant melanoma [published correction appears in Cancer Cell. 2017 Mar 13;31(3):466]. Cancer Cell. 2015;27(1):85‐96. doi:10.1016/j.ccell.2014.11.006
-(Text) These compounds do not drive paradoxical pathway activation and inhibit MEK/ERK in BRAF and NRAS mutant melanoma.
-(Tags) <These compounds, inhibit, MEK/ERK>
+2. (Metadata) Chang H, Li J, Cao Y, Liu T, Shi S, Chen W. Bufadienolides from Venenum Bufonis Inhibit mTOR-Mediated Cyclin D1 and Retinoblastoma Protein Leading to Arrest of Cell Cycle in Cancer Cells. Evid Based Complement Alternat Med. 2018;2018:3247402. Published 2018 Jul 11. doi:10.1155/2018/3247402
+(Text) Bufadienolides inhibit cell proliferation and arrest cells in G1 phase.
+(Tags) <Bufadienolides, inhibit, cell proliferation>
 3. (Metadata) Brogden KA. Antimicrobial peptides: pore formers or metabolic inhibitors in bacteria?. Nat Rev Microbiol. 2005;3(3):238‐250. doi:10.1038/nrmicro1098
 (Text) In fact several observations suggest that translocated peptides can alter cytoplasmic membrane septum formation, inhibit cell-wall synthesis, inhibit nucleic-acid synthesis, inhibit protein synthesis or inhibit enzymatic activity.
 (Tags) <translocated peptides, inhibit, cell-wall synthesis, nucleic-acid synthesis, protein synthesis or enzymatic activity>
@@ -92,7 +92,7 @@
 (Tags) <LY3009120, inhibits, various forms>
 10. (Metadata) Akerström S, Mousavi-Jazi M, Klingström J, Leijon M, Lundkvist A, Mirazimi A. Nitric oxide inhibits the replication cycle of severe acute respiratory syndrome coronavirus. J Virol. 2005;79(3):1966‐1969. doi:10.1128/JVI.79.3.1966-1969.2005
 (Text) The purpose of this study was to examine whether NO inhibits the replication cycle of the severe acute respiratory syndrome coronavirus (SARS CoV) in vitro.
-(Tags) <NO, inhibits, the replication cycle>
+(Tags) <NO, inhibits, replication cycle>
 11. (Metadata) Maffioli SI, Zhang Y, Degen D, et al. Antibacterial Nucleoside-Analog Inhibitor of Bacterial RNA Polymerase. Cell. 2017;169(7):1240‐1248.e23. doi:10.1016/j.cell.2017.05.042
 (Text) PUM potently and selectively inhibits bacterial RNAP in vitro, inhibits bacterial growth in culture, and clears infection in a mouse model of Streptococcus pyogenes peritonitis.
 (Tags) <PUM, inhibits, bacterial RNAP and bacterial growth>
@@ -110,7 +110,7 @@
 (Tags) <SIV(AGM), is inhibited by, human IFITM2>
 16. (Metadata) Sekirnik R, Rose NR, Mecinović J, Schofield CJ. 2-Oxoglutarate oxygenases are inhibited by a range of transition metals. Metallomics. 2010;2(6):397‐399. doi:10.1039/c004952b
 (Text) 2-Oxoglutarate oxygenases are inhibited by a range of transition metals, as exemplified by studies on human histone demethylases and prolyl hydroxylase domain 2 (PHD2 or EGLN1).
-(Tags) <2-Oxoglutarate oxygenases, are inhibited by, a range>
+(Tags) <2-Oxoglutarate oxygenases, are inhibited by, range>
 17. (Metadata) MacKay CE, Shaifta Y, Snetkov VV, Francois AA, Ward JPT, Knock GA. ROS-dependent activation of RhoA/Rho-kinase in pulmonary artery: Role of Src-family kinases and ARHGEF1. Free Radic Biol Med. 2017;110:316‐331. doi:10.1016/j.freeradbiomed.2017.06.022
 (Text) RhoA translocation was also inhibited by an ARHGEF1 siRNA.
 (Tags) <RhoA translocation, was inhibited by, ARHGEF1 siRNA>
@@ -125,66 +125,66 @@
 (Tags) <these modules, inhibit, one>
 =======================================
 [Bind]
-1. (Metadata) 
-(Text) 
-(Tags) 
-2. (Metadata) 
-(Text) 
-(Tags) 
-3. (Metadata) 
-(Text) 
-(Tags) 
-4. (Metadata) 
-(Text) 
-(Tags) 
-5. (Metadata) 
-(Text) 
-(Tags) 
-6. (Metadata) 
-(Text) 
-(Tags) 
-7. (Metadata) 
-(Text) 
-(Tags) 
-8. (Metadata) 
-(Text) 
-(Tags) 
-9. (Metadata) 
-(Text) 
-(Tags) 
-10. (Metadata) 
-(Text) 
-(Tags) 
-11. (Metadata) 
-(Text) 
-(Tags) 
-12. (Metadata) 
-(Text) 
-(Tags) 
-13. (Metadata) 
-(Text) 
-(Tags) 
-14. (Metadata) 
-(Text) 
-(Tags) 
-15. (Metadata) 
-(Text) 
-(Tags) 
-16. (Metadata) 
-(Text) 
-(Tags) 
-17. (Metadata) 
-(Text) 
-(Tags) 
-18. (Metadata) 
-(Text) 
-(Tags) 
-19. (Metadata) 
-(Text) 
-(Tags) 
-20. (Metadata) 
-(Text) 
-(Tags) 
+1. (Metadata) McDermott JJ, Watkins KP, Williams-Carrier R, Barkan A. Ribonucleoprotein Capture by in Vivo Expression of a Designer Pentatricopeptide Repeat Protein in Arabidopsis. Plant Cell. 2019;31(8):1723‐1733. doi:10.1105/tpc.19.00177
+(Text) Pentatricopeptide repeat (PPR) proteins bind RNA via a mechanism that facilitates the customization of sequence specificity.
+(Tags) <Pentatricopeptide repeat (PPR) proteins, bind, RNA>
+2. (Metadata) Chandra M, Chin YK, Mas C, et al. Classification of the human phox homology (PX) domains based on their phosphoinositide binding specificities. Nat Commun. 2019;10(1):1528. Published 2019 Apr 4. doi:10.1038/s41467-019-09355-y
+(Text) Although many PX domains bind the canonical endosome-enriched lipid PtdIns3P, others interact with alternative phosphoinositides, and a precise understanding of how these specificities arise has remained elusive.
+(Tags) <many PX domains, bind, canonical endosome-enriched lipid PtdIns3P>
+3. (Metadata) Li J, Pfeffer SR. Lysosomal membrane glycoproteins bind cholesterol and contribute to lysosomal cholesterol export. Elife. 2016;5:e21635. Published 2016 Sep 24. doi:10.7554/eLife.21635
+(Text) We show here that human LAMP1 and LAMP2 bind cholesterol in a manner that buries the cholesterol 3β-hydroxyl group
+(Tags) <human LAMP1 and LAMP2, bind, cholesterol>
+4. (Metadata) Deshmukh SS, Kornblatt MJ, Kornblatt JA. The influence of truncating the carboxy-terminal amino acid residues of streptococcal enolase on its ability to interact with canine plasminogen. PLoS One. 2019;14(1):e0206338. Published 2019 Jan 17. doi:10.1371/journal.pone.0206338
+(Text) In our hands the individual monomers bind plasminogen. 
+(Tags) <individual monomers, bind, plasminogen>
+5. (Metadata) Emanuelle S, Brewer MK, Meekins DA, Gentry MS. Unique carbohydrate binding platforms employed by the glucan phosphatases [published correction appears in Cell Mol Life Sci. 2016 Jul;73(14):2779]. Cell Mol Life Sci. 2016;73(14):2765‐2778. doi:10.1007/s00018-016-2249-3
+(Text) These enzymes bind and dephosphorylate glycogen in animals and starch in plants. 
+(Tags) <these enzymes, bind, glycogen>
+6. (Metadata) Yang J, Yan W, Yu Y, et al. The compound millepachine and its derivatives inhibit tubulin polymerization by irreversibly binding to the colchicine-binding site in β-tubulin. J Biol Chem. 2018;293(24):9461‐9472. doi:10.1074/jbc.RA117.001658
+(Text) Here, biochemical and cellular experiments revealed that the MDs directly and irreversibly bind β-tubulin.
+(Tags) <MDs, bind, β-tubulin>
+7. (Metadata) Iuchi S. Three classes of C2H2 zinc finger proteins. Cell Mol Life Sci. 2001;58(4):625‐635. doi:10.1007/PL00000885
+(Text) In contrast to proteins with triple-C2H2 fingers, proteins with multiple-adjacent-C2H2 fingers can bind multiple, different ligands.
+(Tags) <proteins, bind, multiple, different ligands>
+8. (Metadata) Marzec M, Brewer P. Binding or Hydrolysis? How Does the Strigolactone Receptor Work?. Trends Plant Sci. 2019;24(7):571‐574. doi:10.1016/j.tplants.2019.05.001
+(Text) Landmark studies had proposed that a product of hydrolysis irreversibly binds the receptor and then activates signalling.
+(Tags) <product, binds, receptor>
+9. (Metadata) Liu S, Xu Z, Leng H, et al. RPA binds histone H3-H4 and functions in DNA replication-coupled nucleosome assembly. Science. 2017;355(6323):415‐420. doi:10.1126/science.aah4712
+(Text) RPA directly binds free H3-H4.
+(Tags) <RPA, binds, H3-H4>
+10. (Metadata) Bin JM, Harris SN, Kennedy TE. The oligodendrocyte-specific antibody 'CC1' binds Quaking 7. J Neurochem. 2016;139(2):181‐186. doi:10.1111/jnc.13745
+(Text) Previous studies have shown that despite being raised against adenomatous polyposis coli, this antibody binds another unknown antigen.
+(Tags) <this antibody, binds, another unknown antigen>
+11. (Metadata) Mateo M, Navaratnarajah CK, Cattaneo R. Structural basis of efficient contagion: measles variations on a theme by parainfluenza viruses. Curr Opin Virol. 2014;5:16‐23. doi:10.1016/j.coviro.2014.01.004
+(Text) SLAM binds near the stalk-head junction of the hemagglutinin.
+(Tags) <SLAM, binds, stalk-head junction>
+12. (Metadata) Denis M, Qin L, Turner P, Jolliffe KA, Goldup SM. A Fluorescent Ditopic Rotaxane Ion-Pair Host. Angew Chem Int Ed Engl. 2018;57(19):5315‐5319. doi:10.1002/anie.201713105
+(Text) The host selectively binds Cl- over more basic anions, which deprotonate the framework, and less basic anions, which bind more weakly.
+(Tags) <host, binds, Cl->
+13. (Metadata) Maun HR, Kirchhofer D, Lazarus RA. Pseudo-active sites of protease domains: HGF/Met and Sonic hedgehog signaling in cancer. Biol Chem. 2010;391(8):881‐892. doi:10.1515/BC.2010.098
+(Text) For HGF, this region binds the Met beta-propeller domain, which leads to Met dimerization and signaling.
+(Tags) <this region, binds, Met beta-propeller domain>
+14. (Metadata) Wong BS, Brown DR, Sy MS. A Yin-Yang role for metals in prion disease. Panminerva Med. 2001;43(4):283‐287.
+(Text) More importantly, PrP also binds other metals such as zinc and manganese at these two sites albeit at a lower affinity.
+(Tags) <PrP, binds, other metals>
+15. (Metadata) Berk AJ. Recent lessons in gene expression, cell cycle control, and cell biology from adenovirus. Oncogene. 2005;24(52):7673‐7685. doi:10.1038/sj.onc.1209040
+(Text) E1B-55K binds p53, inhibiting its transcriptional activation function.
+(Tags) <E1B-55K, binds, p53>
+16. (Metadata) Berk AJ. Recent lessons in gene expression, cell cycle control, and cell biology from adenovirus. Oncogene. 2005;24(52):7673‐7685. doi:10.1038/sj.onc.1209040
+(Text) E1A CR1 binds several chromatin-modifying complexes, but how this contributes to stimulation of cellular DNA synthesis and transformation is not clear.
+(Tags) <E1A CR1, binds, several chromatin-modifying complexes>
+17. (Metadata) Wang T, Cook I, Leyh TS. Isozyme Specific Allosteric Regulation of Human Sulfotransferase 1A1. Biochemistry. 2016;55(29):4036‐4046. doi:10.1021/acs.biochem.6b00401
+(Text) EGCG binds 17-fold more tightly when the active-site cap of the enzyme is closed by the binding of the nucleotide.
+(Tags) <EGCG, binds, 17-fold>
+18. (Metadata) Erdemir HH, Li Z, Sacks DB. IQGAP1 binds to estrogen receptor-α and modulates its function. J Biol Chem. 2014;289(13):9100‐9112. doi:10.1074/jbc.M114.553511
+(Text) In this study, we report that IQGAP1 binds ERα and ERβ.
+(Tags) <IQGAP1, binds, ERα and ERβ>
+19. (Metadata) Medina-Pritchard B, Lazou V, Zou J, et al. Structural basis for centromere maintenance by Drosophila CENP-A chaperone CAL1. EMBO J. 2020;39(7):e103234. doi:10.15252/embj.2019103234
+(Text) While an N-terminal CAL1 fragment wraps around CENP-A/H4 through multiple physical contacts, a C-terminal CAL1 fragment directly binds a CENP-C cupin domain dimer.
+(Tags) <C-terminal CAL1 fragment, binds, CENP-C cupin domain dimer>
+20. (Metadata) Bailey CC, DeVaux LB, Farzan M. The Triggering Receptor Expressed on Myeloid Cells 2 Binds Apolipoprotein E. J Biol Chem. 2015;290(43):26033‐26042. doi:10.1074/jbc.M115.677286
+(Text) TREM2 binds various polyanionic molecules but no specific protein ligands have been identified.
+(Tags) <TREM2, binds, various polyanionic molecules>
 =======================================
 [Stimulate]
 1. (Metadata) 
