@@ -35,8 +35,9 @@ def train_chunker(sentences):
     """
     """
     syntax = r"""
-        NP: {<DT|PP\$>?<JJ.*>*<NN.*>+ (<\(><NN.*><\)>)*}  # chunk determiner, adjectives, and noun
-            # }{                          # chinking
+        # Determiner | Preposition, Adjectives, and Noun + Abbreviation with bracket.
+        NP: {<\(>?<DT|PRP\$?>?<CD|VBN|VBP>?((<CC|,>?<JJ.*>*)+<NN.*>+<CD>?)+(<\(>(<CC>?<NN.*|JJ>+)+<\)>)?<\)>?}   
+            # }{                              # chinking
     """
     chunk_parser = nltk.RegexpParser(syntax)
     for sentence in sentences:
