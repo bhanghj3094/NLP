@@ -1,6 +1,5 @@
 import nltk
-from nltk.corpus import conll2000
-import random
+import re, random
 from pprint import pprint
 
 
@@ -32,62 +31,73 @@ def get_tagged_sentences():
     return sentences
 
 
-class BigramChunker(nltk.ChunkParserI):
-    def __init__(self, train_sents):
-        train_data = [[(t,c) for w,t,c in nltk.chunk.tree2conlltags(sent)]
-                      for sent in train_sents]
-        self.tagger = nltk.BigramTagger(train_data)
-
-    def parse(self, sentence):
-        pos_tags = [pos for (word,pos) in sentence]
-        tagged_pos_tags = self.tagger.tag(pos_tags)
-        chunktags = [chunktag for (pos, chunktag) in tagged_pos_tags]
-        conlltags = [(word, pos, chunktag) for ((word,pos),chunktag)
-                     in zip(sentence, chunktags)]
-        return nltk.chunk.conlltags2tree(conlltags)
+def additional_tags(elem):
+    word, tag = elem
+    if word.lower() == 'but': tag = "BUT"
+    if word.lower() == 'that': tag = "THAT"
+    if word.lower() == 'whether': tag = "WHETHER"
+    return (word, tag)
 
 
-def train_chunker(sentences):
+def chunk(sentence_text):
     """
     """
     syntax = r"""
-        # Determiner | Preposition, Adjectives, and Noun + Abbreviation with bracket.
-        NP: {<\(>?<DT|PRP\$?>?<CD|VBN|VBP>?((<CC|,>?<JJ.*>*)+<NN.*>+<CD>?)+(<\(>(<CC>?<NN.*|JJ>+)+<\)>)?<\)>?}   
-            # }{                              # chinking
+        # Conjuctions
+        CONJ: {<RB><,>}
+        # Noun Phrase
+        NP: {<DT|PRP\$>? (<JJ.*><CC>)* <CD|JJ.*|VBG|VBN>* <NN.*|VBG|CD|POS|PRP>+  (<\(>(<CC>?<NN.*|JJ>+)+<\)>)?}
+            {<PRP|EX>}
+        # Verb Phrase
+        VP: {<VB|VBP|VBZ|VBD>(<VBN><IN|TO>)?}
+            }<VBG>{  # chinking
+        # Multiple Noun Phrase
+        MNP: {<NP> (<,><NP>)+ (<,><CC><NP>)}
+             {<NP> (<CC><NP>)?}     
+        # Preposition Phrase
+        INP: {<IN><MNP>}
+        TOP: {<TO><MNP|VP>}
+        # Clause
+        CLAUSE: {<MNP|W.*><INP|TOP>* <VP><MNP>*<INP|TOP>* (<CC|,>? <VP><MNP>*<INP|TOP>*)*}
+        # That Phrase
+        THATP: {<THAT><CLAUSE>}
+        # Whether Phrase
+        WHETHERP: {<WHETHER><CLAUSE>}
+        # How to distinguish preposition and subordinating conjunction?
     """
-    # CoNLL dataset for training and test. 
-    train_sents = conll2000.chunked_sents('train.txt', chunk_types=['NP', 'VP'])
-    test_sents = conll2000.chunked_sents('test.txt', chunk_types=['NP', 'VP'])
-
     # Chunkers
-    parse_chunker = nltk.RegexpParser(syntax)
-    bigram_chunker = BigramChunker(train_sents)
+    parse_chunker = nltk.RegexpParser(syntax, loop=2)
 
-    print(parse_chunker.evaluate(test_sents))
-    print(bigram_chunker.evaluate(test_sents))
+    # Tokenize, pos_tag, and chunk.
+    tokens = nltk.word_tokenize(sentence_text)
+    tagged = list(map(additional_tags, [
+        (word, tag)
+        for word, tag in nltk.pos_tag(tokens)
+        if not re.match(r"RB.*", tag)
+        if not re.match(r"MD", tag)
+    ]))
 
-    for sentence in sentences:
+    return parse_chunker.parse(tagged)
+
+
+def extract_relations(sentences):
+    """
+    """
+    for idx, sentence in enumerate(sentences):
         text, triple = sentence
-        tokens = nltk.word_tokenize(text)
-        tagged = nltk.pos_tag(tokens)
-        chunked0 = parse_chunker.parse(tagged)
-        chunked1 = bigram_chunker.parse(tagged)
-        print(chunked0)
-        print(chunked1)
+        chunked_sentence = chunk(text)
+        print("(%d):" % (idx + 1), chunked_sentence)
 
 
 def main():
     # divide sentences into train, and test sets.
     sentences = get_tagged_sentences()
-    random.shuffle(sentences)
+    # random.shuffle(sentences)
     train = sentences[:80]
     test = sentences[80:]
 
     # train chunker
-    train_chunker(test)
-
-    # detect_entities()
-    # extract_relations()
+    extract_relations(sentences[90:100])
 
 
 if __name__ == "__main__":
