@@ -9,8 +9,8 @@ def get_tagged_sentences():
     Returns:
         sentences (list): each item follows below format;
             (
-                sentence_text,
-                (X, action, Y)
+                sentence_text, 
+                [(X, Action, Y), ..]
             )
     """
     f = open('sentences.txt', 'r')
@@ -28,10 +28,11 @@ def get_tagged_sentences():
             )
         else: continue
     f.close()
-    return sentences
+    return sentences, []
 
 
 def additional_tags(elem):
+    """Modify tags for certain words."""
     word, tag = elem
     if word.lower() == 'but': tag = "BUT"
     if word.lower() == 'that': tag = "THAT"
@@ -40,7 +41,15 @@ def additional_tags(elem):
 
 
 def chunk(sentence_text):
-    """
+    """Chunk the given sentence text.
+
+    Args:
+        sentence_text (string): given sentence 
+            in plain text.
+
+    Returns:
+        chunked_sentence (tree): chunked by 
+            predefined syntax with RegexpParser.
     """
     syntax = r"""
         # Conjuctions
@@ -59,13 +68,13 @@ def chunk(sentence_text):
         TOP: {<TO><MNP|VP>}
         # Clause
         CLAUSE: {<MNP|W.*><INP|TOP>* <VP><MNP>*<INP|TOP>* (<CC|,>? <VP><MNP>*<INP|TOP>*)*}
+        # How to distinguish preposition and subordinating conjunction?
         # That Phrase
         THATP: {<THAT><CLAUSE>}
         # Whether Phrase
         WHETHERP: {<WHETHER><CLAUSE>}
-        # How to distinguish preposition and subordinating conjunction?
     """
-    # Chunkers
+    # Chunker
     parse_chunker = nltk.RegexpParser(syntax, loop=2)
 
     # Tokenize, pos_tag, and chunk.
@@ -76,28 +85,80 @@ def chunk(sentence_text):
         if not re.match(r"RB.*", tag)
         if not re.match(r"MD", tag)
     ]))
-
     return parse_chunker.parse(tagged)
 
 
-def extract_relations(sentences):
+def extract(chunked_sentence):
+    """Extract relations <X, Action, Y> from chunked tree. 
+
+    Args:
+        chunked_sentence (tree): chunked sentence 
+            expressed in tree.
+
+    Returns:
+        relations (list): [(X, Action, Y), ..]
     """
+    def traverse(t):
+        try:
+            t.label()
+        except AttributeError:
+            print(t, end=" ")
+        else:
+            # Now we know that t.node is defined
+            print('(', t.label(), end=" ")
+            for child in t:
+                traverse(child)
+            print(')', end=" ")
+
+    relations = traverse(chunked_sentence)
+    return [("X", "Action", "Y")]
+
+
+def evaluate(result):
+    """Evaluate extraced relations.
+
+    Args:
+        result (list): list of tuples;
+            [
+                (
+                    extracted_relations,
+                    answer_relations
+                ),
+                ...
+            ]
+            extracted_relations, answer_relations;
+            [(X, Action, Y), ..]
+
+    Prints:
+        Precision (float): --
+        Recall (float): --
+        F-score (float): --
     """
-    for idx, sentence in enumerate(sentences):
-        text, triple = sentence
-        chunked_sentence = chunk(text)
-        print("(%d):" % (idx + 1), chunked_sentence)
 
 
 def main():
     # divide sentences into train, and test sets.
-    sentences = get_tagged_sentences()
-    # random.shuffle(sentences)
-    train = sentences[:80]
-    test = sentences[80:]
+    train, test = get_tagged_sentences()
 
-    # train chunker
-    extract_relations(sentences[90:100])
+    # build chunker and relation extraction module
+    # from train data with manual modification.
+    for idx, sentence in enumerate(train[0:10]):
+        text, triples = sentence
+        chunked_sentence = chunk(text)
+        print("(%d):" % (idx + 1), chunked_sentence)
+        relations = extract(chunked_sentence)
+        print(relations)
+
+    # # input test data
+    # result = []
+    # for idx, sentence in enumerate(test):
+    #     text, triples = sentence
+    #     chunked_sentence = chunk(text)
+    #     relations = extract(chunked_sentence)
+    #     result.append((relations, triples))
+
+    # # evaluate
+    # evaluate(result)
 
 
 if __name__ == "__main__":
