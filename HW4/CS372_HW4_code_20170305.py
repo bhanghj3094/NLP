@@ -13,22 +13,33 @@ def get_tagged_sentences():
                 [(X, Action, Y), ..]
             )
     """
-    f = open('sentences.txt', 'r')
+    f = open('CS372_HW4_output_20170305.csv', 'r')
     lines = f.readlines()
 
     # parse sentences
-    sentences = []
+    train = []
+    test = []
     text = None
+    dataType = "train"
     for line in lines:
-        if line.startswith("(Text)"):
-            text = line.strip()[7:]
-        elif line.startswith("(Tags)"):
-            sentences.append(
-                (text, eval(line.strip()[7:]))
-            )
+        if line.startswith("Text"):
+            text = line.strip()[6:]
+        elif line.startswith("DataType"):
+            dataType = "test" if "test" == line.strip()[10:] else "train"
+        elif line.startswith("Tags"):
+            if dataType == "train":
+                if not line.strip()[6:]: continue  # TO REMOVE
+                train.append(
+                    (text, eval(line.strip()[6:]))
+                )
+            else:
+                if not line.strip()[6:]: continue  # TO REMOVE
+                test.append(
+                    (text, eval(line.strip()[6:]))
+                )
         else: continue
     f.close()
-    return sentences, []
+    return train, test
 
 
 def additional_tags(elem):
