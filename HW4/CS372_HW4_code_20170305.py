@@ -1,4 +1,5 @@
 import nltk
+from nltk.corpus import conll2000
 import random
 from pprint import pprint
 
@@ -31,6 +32,21 @@ def get_tagged_sentences():
     return sentences
 
 
+class BigramChunker(nltk.ChunkParserI):
+    def __init__(self, train_sents):
+        train_data = [[(t,c) for w,t,c in nltk.chunk.tree2conlltags(sent)]
+                      for sent in train_sents]
+        self.tagger = nltk.BigramTagger(train_data)
+
+    def parse(self, sentence):
+        pos_tags = [pos for (word,pos) in sentence]
+        tagged_pos_tags = self.tagger.tag(pos_tags)
+        chunktags = [chunktag for (pos, chunktag) in tagged_pos_tags]
+        conlltags = [(word, pos, chunktag) for ((word,pos),chunktag)
+                     in zip(sentence, chunktags)]
+        return nltk.chunk.conlltags2tree(conlltags)
+
+
 def train_chunker(sentences):
     """
     """
@@ -39,13 +55,25 @@ def train_chunker(sentences):
         NP: {<\(>?<DT|PRP\$?>?<CD|VBN|VBP>?((<CC|,>?<JJ.*>*)+<NN.*>+<CD>?)+(<\(>(<CC>?<NN.*|JJ>+)+<\)>)?<\)>?}   
             # }{                              # chinking
     """
-    chunk_parser = nltk.RegexpParser(syntax)
+    # CoNLL dataset for training and test. 
+    train_sents = conll2000.chunked_sents('train.txt', chunk_types=['NP', 'VP'])
+    test_sents = conll2000.chunked_sents('test.txt', chunk_types=['NP', 'VP'])
+
+    # Chunkers
+    parse_chunker = nltk.RegexpParser(syntax)
+    bigram_chunker = BigramChunker(train_sents)
+
+    print(parse_chunker.evaluate(test_sents))
+    print(bigram_chunker.evaluate(test_sents))
+
     for sentence in sentences:
         text, triple = sentence
         tokens = nltk.word_tokenize(text)
         tagged = nltk.pos_tag(tokens)
-        chunked = chunk_parser.parse(tagged)
-        print(chunked)
+        chunked0 = parse_chunker.parse(tagged)
+        chunked1 = bigram_chunker.parse(tagged)
+        print(chunked0)
+        print(chunked1)
 
 
 def main():
