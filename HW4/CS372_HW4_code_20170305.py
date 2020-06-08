@@ -48,6 +48,9 @@ def additional_tags(elem):
     if word.lower() == 'but': tag = "BUT"
     if word.lower() == 'that': tag = "THAT"
     if word.lower() == 'whether': tag = "WHETHER"
+    if word.lower() == 'although': tag = "ALTHOUGH"
+    if word.lower() == 'while': tag = "WHILE"
+    if word.lower() == 'for': tag = "FOR"
     return (word, tag)
 
 
@@ -66,20 +69,20 @@ def chunk(sentence_text):
         # Conjuctions
         CONJ: {<RB><,>}
         # Noun Phrase
-        NP: {<DT|PRP\$>? (<JJ.*><CC>)* <CD|JJ.*|VBG|VBN>* <NN.*|VBG|CD|POS|PRP>+  (<\(>(<CC>?<NN.*|JJ>+)+<\)>)?}
+        NP: {<DT|PRP\$>? (<JJ.*><CC>)* <CD|JJ.*|VBG|VBN|RB.?>* <NN.*|VBG|CD|POS|PRP>+  (<\(>(<CC>?<NN.*|JJ>+)+<\)>)?}
             {<PRP|EX>}
         # Verb Phrase
-        VP: {<VB|VBP|VBZ|VBD>(<VBN><IN|TO>)?}
+        VP: {<VB|VBP|VBZ|VBD><RB.?>?(<VBN><RB.?>?<IN|TO>)?}
             }<VBG>{  # chinking
         # Multiple Noun Phrase
         MNP: {<NP> (<,><NP>)+ (<,><CC><NP>)}
              {<NP> (<CC><NP>)?}
-             {<MNP><MNP>+}
+        MNP: {<MNP><MNP>+}
         # Preposition Phrase
-        INP: {<IN><MNP>}
-        TOP: {<TO><MNP|VP>}
+        INP: {<IN><RB.?>?<MNP>}
+        TOP: {<TO><RB.?>?<MNP|VP>}
         # Clause
-        CLAUSE: {<MNP|W.*><INP|TOP>* <VP><MNP>*<INP|TOP>* (<CC|,>? <VP><MNP>*<INP|TOP>*)*}
+        CLAUSE: {<MNP|W.*> <RB.?>? <INP|TOP>* <RB.?>? <VP> <RB.?>? <MNP>* <RB.?>? <INP|TOP>* <RB.?>? (<CC|,>? <RB.?>? <VP><MNP>* <RB.?>? <INP|TOP>* <RB.?>?)*}
         # How to distinguish preposition and subordinating conjunction?
         # That Phrase
         THATP: {<THAT><CLAUSE>}
@@ -94,7 +97,7 @@ def chunk(sentence_text):
     tagged = list(map(additional_tags, [
         (word, tag)
         for word, tag in nltk.pos_tag(tokens)
-        if not re.match(r"RB.*", tag)
+        # if not re.match(r"RB.*", tag)
         if not re.match(r"MD", tag)
     ]))
     return parse_chunker.parse(tagged)
@@ -119,22 +122,22 @@ def extract(chunked_sentence):
                 elem.label()
             except AttributeError:
                 # save which
-                if elem[0] == 'which':
+                if elem[0] in ['which']:
                     X = elem[0]
             else:
                 if elem.label() == 'MNP':
                     MNP = get_text(elem)
                     if Action:
                         relations.append((X, Action, MNP))
-                        X = ""
-                        Action = ""
                     else:
-                        X = MNP
+                        if not X:
+                            X = MNP
+                    Action = ""
                 elif elem.label() == 'VP':
-                    verb = get_text(elem)
+                    verb = get_text(elem, True)
                     if is_action(verb):
                         Action = verb
-                elif elem.label() in ["CLAUSE", "THATP"]:
+                elif elem.label() in ["CLAUSE", "THATP", "WHETHERP", "S"]:
                     child_relations = traverse(elem)
                     # which 확인.
                     for child_idx, child_relation in enumerate(child_relations):
@@ -172,21 +175,25 @@ def extract(chunked_sentence):
                 return True
         return False
 
-    def get_text(t):
+    def get_text(t, is_vp = False):
         words = []
         for elem in t:
             try:
                 elem.label()
-                words.append(get_text(elem))
+                words.append(get_text(elem, is_vp))
             except AttributeError:
-                words.append(elem[0])
+                if is_vp:
+                    if not re.match(r"RB.*", elem[1]):
+                        words.append(elem[0])
+                else:
+                    words.append(elem[0])
         return join(words)
 
     def join(words):
         answer = ""
         prev_was_open_braket = False
         for idx, word in enumerate(words):
-            if word in [')', ',', '.']:
+            if word in [')', ',', '.', "'"]:
                 answer += word
             elif word in ['(']:
                 prev_was_open_braket = True
@@ -206,7 +213,7 @@ def extract(chunked_sentence):
 
 
 def evaluate(result):
-    """Evaluate extraced relations.
+    """Evaluate extracted relations.
 
     Args:
         result (list): list of tuples;
@@ -225,31 +232,36 @@ def evaluate(result):
         Recall (float): --
         F-score (float): --
     """
+    for idx, relation_pair in enumerate(result):
+        extracted, answer = relation_pair
+        if extracted != answer:
+            print("(%d) extracted:" % idx, extracted)
+            print("answer:", answer)
 
 
 def main():
     # divide sentences into train, and test sets.
     train, test = get_tagged_sentences()
 
-    # build chunker and relation extraction module
-    # from train data with manual modification.
-    for idx, sentence in enumerate(train[0:10]):
-        text, triples = sentence
-        chunked_sentence = chunk(text)
-        print("(%d):" % (idx + 1), chunked_sentence)
-        relations = extract(chunked_sentence)
-        print("result:", relations)
-
-    # # input test data
-    # result = []
-    # for idx, sentence in enumerate(test):
+    # # build chunker and relation extraction module
+    # # from train data with manual modification.
+    # for idx, sentence in enumerate(train):
     #     text, triples = sentence
     #     chunked_sentence = chunk(text)
+    #     print("(%d):" % (idx + 1), chunked_sentence)
     #     relations = extract(chunked_sentence)
-    #     result.append((relations, triples))
+    #     print("result:", relations)
 
-    # # evaluate
-    # evaluate(result)
+    # input test data
+    result = []
+    for idx, sentence in enumerate(test):
+        text, triples = sentence
+        chunked_sentence = chunk(text)
+        relations = extract(chunked_sentence)
+        result.append((relations, triples))
+
+    # evaluate
+    evaluate(result)
 
 
 if __name__ == "__main__":
