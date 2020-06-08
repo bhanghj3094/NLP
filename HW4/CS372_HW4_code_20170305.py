@@ -73,7 +73,8 @@ def chunk(sentence_text):
             }<VBG>{  # chinking
         # Multiple Noun Phrase
         MNP: {<NP> (<,><NP>)+ (<,><CC><NP>)}
-             {<NP> (<CC><NP>)?}     
+             {<NP> (<CC><NP>)?}
+             {<MNP><MNP>+}
         # Preposition Phrase
         INP: {<IN><MNP>}
         TOP: {<TO><MNP|VP>}
@@ -110,19 +111,98 @@ def extract(chunked_sentence):
         relations (list): [(X, Action, Y), ..]
     """
     def traverse(t):
-        try:
-            t.label()
-        except AttributeError:
-            print(t, end=" ")
-        else:
-            # Now we know that t.node is defined
-            print('(', t.label(), end=" ")
-            for child in t:
-                traverse(child)
-            print(')', end=" ")
+        relations = []
+        X = ""
+        Action = ""
+        for idx, elem in enumerate(t):
+            try:
+                elem.label()
+            except AttributeError:
+                # save which
+                if elem[0] == 'which':
+                    X = elem[0]
+            else:
+                if elem.label() == 'MNP':
+                    MNP = get_text(elem)
+                    if Action:
+                        relations.append((X, Action, MNP))
+                        X = ""
+                        Action = ""
+                    else:
+                        X = MNP
+                elif elem.label() == 'VP':
+                    verb = get_text(elem)
+                    if is_action(verb):
+                        Action = verb
+                elif elem.label() in ["CLAUSE", "THATP"]:
+                    child_relations = traverse(elem)
+                    # which 확인.
+                    for child_idx, child_relation in enumerate(child_relations):
+                        child_x, child_action, child_y = child_relation
+                        if child_x == 'which':
+                            child_relations[child_idx] = \
+                                (get_closest_mnp(t, idx), child_action, child_y)
+                    relations.extend(child_relations)
+        return relations
+
+    def get_closest_mnp(t, idx):
+        idx -= 1
+        while idx >= 0:
+            closest = t[idx]
+            try:
+                closest.label()
+            except AttributeError:
+                idx -= 1
+            else:
+                if closest.label() == 'MNP':
+                    return get_text(closest)
+                else:
+                    MNP = get_closest_mnp(closest, len(closest))
+                    if MNP != 'which':
+                        return MNP
+                    else:
+                        idx -= 1
+        # MNP not found
+        return 'which'
+
+    def is_action(verb):
+        action_list = ['activate', 'inhibit', 'bind', 'stimulate', 'prevent']
+        for action in action_list:
+            if action in verb:
+                return True
+        return False
+
+    def get_text(t):
+        words = []
+        for elem in t:
+            try:
+                elem.label()
+                words.append(get_text(elem))
+            except AttributeError:
+                words.append(elem[0])
+        return join(words)
+
+    def join(words):
+        answer = ""
+        prev_was_open_braket = False
+        for idx, word in enumerate(words):
+            if word in [')', ',', '.']:
+                answer += word
+            elif word in ['(']:
+                prev_was_open_braket = True
+                answer += " " + word
+            else:
+                if idx == 0:
+                    answer += word
+                elif prev_was_open_braket:
+                    answer += word
+                    prev_was_open_braket = False
+                else:
+                    answer += " " + word
+        return answer
 
     relations = traverse(chunked_sentence)
-    return [("X", "Action", "Y")]
+    return relations # [("X", "Action", "Y")]
 
 
 def evaluate(result):
@@ -158,7 +238,7 @@ def main():
         chunked_sentence = chunk(text)
         print("(%d):" % (idx + 1), chunked_sentence)
         relations = extract(chunked_sentence)
-        print(relations)
+        print("result:", relations)
 
     # # input test data
     # result = []
