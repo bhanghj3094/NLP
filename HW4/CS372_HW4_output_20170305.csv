@@ -395,10 +395,10 @@ Tags, [("PFMG1", "prevents", "bone loss")]
 Text, Over experience, using this C-Box has demonstrated that it can prevent pest infestation and reduce the cost of replacing pest-infested CPAP machines.
 DataType, train
 Tags, [("it", "prevent", "pest infestation")]
-18. Metadata, (28075281, 2017, "Nursing Associates", "-")
-Text, The degree pathway prevents some individuals from entering nursing.
+18. Metadata, (10973068, 2000, "The Pachytene Checkpoint", "Howard Hughes Medical Institute, Yale University, PO Box 208103, New Haven, CT 06520-8103, USA. shirleen.roeder@yale.edu")
+Text, The pachytene checkpoint prevents meiotic nuclear division in cells that fail to complete meiotic recombination and chromosome synapsis.
 DataType, test
-Tags, [("The degree pathway", "prevents", "some individuals")]
+Tags, [("The pachytene checkpoint", "prevents", "meiotic nuclear division")]
 19. Metadata, (15172660, 2004, "How Do Atrial Pacing Algorithms Prevent Atrial Arrhythmias?", "Department of Cardiology, Eastbourne General Hospital, Eastbourne, UK. mitcharj@doctors.org.uk")
 Text, Pacemaker implantation may prevent atrial tachyarrhythmias by preventing bradycardia and pauses.
 DataType, train

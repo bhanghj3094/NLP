@@ -232,25 +232,41 @@ def evaluate(result):
         Recall (float): --
         F-score (float): --
     """
+    true_positive = 0
+    false_positive = 0
+    false_negative = 0
     for idx, relation_pair in enumerate(result):
         extracted, answer = relation_pair
-        if extracted != answer:
-            print("(%d) extracted:" % idx, extracted)
-            print("answer:", answer)
+        if not extracted:
+            false_negative += 1
+        elif extracted != answer:
+            false_positive += 1
+        else:
+            true_positive += 1
+    precision = true_positive / (true_positive + false_positive)
+    recall = true_positive / (true_positive + false_negative)
+    f_score = (2 * precision * recall) / (precision + recall)
+    print("Precision: %6.2f" % precision)
+    print("Recall: %9.2f" % recall)
+    print("F-Score: %8.2f" % f_score)
 
 
 def main():
     # divide sentences into train, and test sets.
     train, test = get_tagged_sentences()
 
-    # # build chunker and relation extraction module
-    # # from train data with manual modification.
-    # for idx, sentence in enumerate(train):
-    #     text, triples = sentence
-    #     chunked_sentence = chunk(text)
-    #     print("(%d):" % (idx + 1), chunked_sentence)
-    #     relations = extract(chunked_sentence)
-    #     print("result:", relations)
+    # build chunker and relation extraction module
+    # from train data with manual modification.
+    train_result = []
+    for idx, sentence in enumerate(train):
+        text, triples = sentence
+        chunked_sentence = chunk(text)
+        relations = extract(chunked_sentence)
+        train_result.append((relations, triples))
+
+    # evaluate training
+    print("[Training]")
+    evaluate(train_result)
 
     # input test data
     result = []
@@ -261,6 +277,7 @@ def main():
         result.append((relations, triples))
 
     # evaluate
+    print("[Testing]")
     evaluate(result)
 
 
