@@ -28,15 +28,9 @@ def get_tagged_sentences():
             dataType = "test" if "test" == line.strip()[10:] else "train"
         elif line.startswith("Tags"):
             if dataType == "train":
-                if not line.strip()[6:]: continue  # TO REMOVE
-                train.append(
-                    (text, eval(line.strip()[6:]))
-                )
+                train.append((text, eval(line.strip()[6:])))
             else:
-                if not line.strip()[6:]: continue  # TO REMOVE
-                test.append(
-                    (text, eval(line.strip()[6:]))
-                )
+                test.append((text, eval(line.strip()[6:])))
         else: continue
     f.close()
     return train, test
@@ -98,7 +92,7 @@ def chunk(sentence_text):
         (word, tag)
         for word, tag in nltk.pos_tag(tokens)
         # if not re.match(r"RB.*", tag)
-        if not re.match(r"MD", tag)
+        if not re.match(r"MD", tag)  # remove modals
     ]))
     return parse_chunker.parse(tagged)
 
@@ -121,7 +115,7 @@ def extract(chunked_sentence):
             try:
                 elem.label()
             except AttributeError:
-                # save which
+                # save which as X
                 if elem[0] in ['which']:
                     X = elem[0]
             else:
@@ -139,7 +133,7 @@ def extract(chunked_sentence):
                         Action = verb
                 elif elem.label() in ["CLAUSE", "THATP", "WHETHERP", "S"]:
                     child_relations = traverse(elem)
-                    # which 확인.
+                    # search for which and its subject
                     for child_idx, child_relation in enumerate(child_relations):
                         child_x, child_action, child_y = child_relation
                         if child_x == 'which':
@@ -209,7 +203,7 @@ def extract(chunked_sentence):
         return answer
 
     relations = traverse(chunked_sentence)
-    return relations # [("X", "Action", "Y")]
+    return relations
 
 
 def evaluate(result):
@@ -228,9 +222,9 @@ def evaluate(result):
             [(X, Action, Y), ..]
 
     Prints:
-        Precision (float): --
-        Recall (float): --
-        F-score (float): --
+        Precision (float): TP / (TP + FP)
+        Recall (float): TP / (TP + FN)
+        F-score (float): (2 * Precision * Recall) / (Precision + Recall)
     """
     true_positive = 0
     false_positive = 0
@@ -258,7 +252,7 @@ def main():
     # build chunker and relation extraction module
     # from train data with manual modification.
     train_result = []
-    for idx, sentence in enumerate(train):
+    for sentence in train:
         text, triples = sentence
         chunked_sentence = chunk(text)
         relations = extract(chunked_sentence)
@@ -270,7 +264,7 @@ def main():
 
     # input test data
     result = []
-    for idx, sentence in enumerate(test):
+    for sentence in test:
         text, triples = sentence
         chunked_sentence = chunk(text)
         relations = extract(chunked_sentence)
