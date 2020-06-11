@@ -42,7 +42,6 @@ For example,
 > contains: _'wind(air)'_ + _'wind(tie)'_ + _'tear(pull apart)'_  
 > ...
 
-
 ### HW4
 
 Extract relations from MEDLINE database. *<X, ACTION, Y>*  
@@ -61,6 +60,17 @@ For example,
 > => <this activation, was inhibited by, calyculin> OR <calyculin, inhibited, this activation>  
 > => <this activation, was inhibited by, genistein> OR <genistein, inhibited, this activation>  
 > => <this activation, was inhibited by, two inhibitors> OR <two inhibitors, inhibited, this activation>
+
+### HW5
+
+Resolve coreferences from [GAP coreference dataset](https://github.com/google-research-datasets/gap-coreference).  
+Find right antecedent names for ambiguous pronouns for each snippet.   
+Divide searching algorithm into two: snippet-context(only uses given text), and page-context(uses whole context from Wikipedia URL).
+
+For example,
+
+> In May, *Fujisawa* joined *Mari Motohashi’s* rink as the team’s skip, moving back from Karuizawa to Kitami where **she** had spent her junior days.  
+> => ‘Fujisawa’ is ‘TRUE’ and ‘Mari Motohashi’ is ‘FALSE’.
 
 ## Environments
 
