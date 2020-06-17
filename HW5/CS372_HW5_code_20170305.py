@@ -173,26 +173,22 @@ def chunk(tokenized_text):
         tokenized_text (List of Tuples): result by function 'tokenize'
 
     Returns:
-        chunked_text (Tree): chunked by 
-            predefined syntax with RegexpParser.
+        chunked_text (Tree): chunked by predefined syntax with RegexpParser.
     """
-    grammar = nltk.CFG.fromstring("""
-        S -> NP VP
-        NP -> Det Nom | PropN
-        Nom -> Adj Nom | N
-        VP -> V Adj | V NP | V S | V NP PP
-        PP -> P | NP
-        PropN -> NNP | NNPS
-        Det -> DT
-        N -> NN | NNS
-        Adj -> JJ | JJR | JJS
-        V -> VB | VBD
-        P -> IN
-    """)
-    srparser = nltk.ShiftReduceParser(grammar)
-    for e in srparser.parse(tokenized_text):
-        print(e)
-    return []
+    syntax = r"""
+        NP: {<DT|PRP\$>? <JJ.*>*<NN.*>+}
+        VP: {<VB|VBP|VBZ|VBD>}
+    """
+    # chunker
+    parse_chunker = nltk.RegexpParser(syntax, loop=2)
+
+    # filter tags
+    tagged = [ (word, tag)
+        for word, tag in tokenized_text
+        if not re.match(r"RB.*", tag)  # remove adverbs
+        if not re.match(r"MD", tag)  # remove modals
+    ]
+    return parse_chunker.parse(tagged)
 
 
 def extract(chunked_text, indexes):
@@ -233,10 +229,12 @@ def main():
     # get results
     snippet_results = []
     page_results = []
-    for idx, item in enumerate(test):
+    for idx, item in enumerate(test[:1]):
         # annotate the snippet
         tokenized_text, indexes, answer, url = annotate_snippet(item)
         chunked_text = chunk(tokenized_text)
+        print(tokenized_text)
+        print(chunked_text)
         # result = extract(chunked_text, indexes)
         # snippet_results.append(result)
 
