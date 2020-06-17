@@ -45,76 +45,78 @@ def parse_gap():
     return development, test, validation
 
 
-def tokenize_sentences(text):
-    """Returns sentences tokenized with nltk.
+def tokenize(text):
+    """Returns text tokenized with nltk.
 
-    First split into sentences, then annotated with
-    part-of-speech tags. 
+    Split into words, and then annotate with part-of-speech tags.
     """
-    return [
-        nltk.pos_tag(nltk.word_tokenize(sent))
-        for sent in nltk.sent_tokenize(text)
-    ]
+    return nltk.pos_tag(nltk.word_tokenize(text))
 
 
 def annotate_snippet(item):
     """Annotate snippet of pronoun, A, B.
 
     Returns:
-        sentences (List): result by function tokenize_sentences()
-        pronoun_index (Tuple): (sent_index, word_index) of sentences
-            above. Locates desired pronoun. 
-        a_index (Tuple): (sent_index, word_index) of sentences
-            above. Locates desired name A. 
-        b_index (Tuple): (sent_index, word_index) of sentences
-            above. Locates desired name B. 
-        answer (Tuple): (A_coref, B_coref)
-        url (String): returns url
+        tokenized_text (List): result by function 'tokenize'
+        indexes (List of Tuples): Locates the indexes of desired pronoun, 
+            name A, name B of tokenized_text above. Each element is shown as 
+            tuple, with start and end index.
+            [
+                (start_idx, end_idx),  # pronoun
+                ... # name A, name B
+            ]
+        answer (Tuple of Booleans): whether name A, name B is a reference of the given 
+            pronoun. (coreference of name A, coreference of name B)
+        url (String): wikipedia url used for getting page context.
     """
     text, pronoun, pronoun_offset, A, A_offset, A_coref, B, B_offset, B_coref, url = item
 
     # initialize return values
-    sentences = tokenize_sentences(text)
-    pronoun_index, a_index, b_index = None, None, None
-    modified = [False, False, False]
+    tokenized_text = []
+    indexes = [None, None, None]
     answer = (A_coref, B_coref)
 
-    offset = 0  # current offset
-    # for attaching next word..
-    attach = False  # if true, attach current word without offset.
-    for sent_idx, sentence in enumerate(sentences):
-        for word_idx, word in enumerate(sentence):
-            # on specific patterns, do not add space
-            no_space = word[0] in ['.', ',', '!', '?', '*', "'s", ')', "''", ':', '...', ';']
-            if not (sent_idx == 0 and word_idx == 0) and \
-               not no_space and not attach:
-                offset += 1
+    # sort offsets
+    offsets = [(int(pronoun_offset), "P"), (int(A_offset), "A"), \
+               (int(B_offset), "B"), (len(text), "END")]
+    offsets.sort()
 
-            if int(pronoun_offset) - 2 <= offset <= int(pronoun_offset) + 2:
-                pronoun_index = (sent_idx, word_idx)
-                modified[0] = True
-            if int(A_offset) - 2 <= offset <= int(A_offset) + 2:
-                a_index = (sent_idx, word_idx)
-                modified[1] = True
-            if int(B_offset) - 2 <= offset <= int(B_offset) + 2:
-                b_index = (sent_idx, word_idx)
-                modified[2] = True
+    # divide, tokenize, and join. 
+    recent_offset = 0
+    for offset, word_type in offsets:
+        tokens = tokenize(text[recent_offset:offset])
+        tokenized_text.extend(tokens)
 
-            # decide attach
-            attach = word[0] in ['*', '(', '``', '#']
-            offset += len(word[0])
+        # modify indexes
+        start_idx = len(tokenized_text)
+        if word_type == "P":
+            word_len = len(nltk.word_tokenize(pronoun))
+            indexes[0] = (start_idx, start_idx + word_len)
+        elif word_type == "A":
+            word_len = len(nltk.word_tokenize(A))
+            indexes[1] = (start_idx, start_idx + word_len)
+        elif word_type == "B":
+            word_len = len(nltk.word_tokenize(B))
+            indexes[2] = (start_idx, start_idx + word_len)
+        elif word_type == "END":
+            break
+        else:  # not reached
+            assert False
+        
+        # update recent_offset
+        recent_offset = offset
 
-    assert modified[0] and modified[1] and modified[2]
-    return sentences, pronoun_index, a_index, b_index, answer, url
+    assert indexes[0] and indexes[1] and indexes[2]
+    return tokenized_text, indexes, answer, url
 
 
 def main():
     # get GAP datasets
     development, test, validation = parse_gap()
 
-    for idx, item in enumerate(test[:]):
-        print(idx, item)
-        print(annotate_snippet(item))
+    # annotate the snippet
+    for idx, item in enumerate(test):
+        tokenized_text, indexes, answer, url = annotate_snippet(item)
         
 
 if __name__ == "__main__":
