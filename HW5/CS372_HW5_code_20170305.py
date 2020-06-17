@@ -1,5 +1,9 @@
-import nltk, re
+import nltk, re, wikipediaapi
 from pprint import pprint
+
+
+# wikipedia API
+wiki = wikipediaapi.Wikipedia(language='en', extract_format=wikipediaapi.ExtractFormat.WIKI)
 
 
 def parse_gap():
@@ -110,6 +114,21 @@ def annotate_snippet(item):
     return tokenized_text, indexes, answer, url
 
 
+def get_page_context(url):
+    """Get page context from the url.
+
+    Returns:
+        text (String): text of wikipedia page. 
+            None if page does not exist.
+    """
+    base_len = len("http://en.wikipedia.org/wiki/")
+    page_name = url[base_len:]
+    wiki_page = wiki.page(page_name)
+    if not wiki_page.exists():
+        return None
+    return wiki_page.text
+
+
 def main():
     # get GAP datasets
     development, test, validation = parse_gap()
@@ -117,6 +136,7 @@ def main():
     # annotate the snippet
     for idx, item in enumerate(test):
         tokenized_text, indexes, answer, url = annotate_snippet(item)
+        page_text = get_page_context(url)
         
 
 if __name__ == "__main__":
