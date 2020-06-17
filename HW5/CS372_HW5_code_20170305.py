@@ -61,7 +61,7 @@ def annotate_snippet(item):
     """Annotate snippet of pronoun, A, B.
 
     Returns:
-        tokenized_text (List): result by function 'tokenize'
+        tokenized_text (List of Tuples): result by function 'tokenize'
         indexes (List of Tuples): Locates the indexes of desired pronoun, 
             name A, name B of tokenized_text above. Each element is shown as 
             tuple, with start and end index.
@@ -117,6 +117,10 @@ def annotate_snippet(item):
 def get_page_context(url):
     """Get page context from the url.
 
+    Args:
+        url (String): url in following format
+            "http://en.wikipedia.org/wiki/~~"
+
     Returns:
         text (String): text of wikipedia page. 
             None if page does not exist.
@@ -129,15 +133,113 @@ def get_page_context(url):
     return wiki_page.text
 
 
+def update_annotation(page_text, original_text, indexes):
+    """Enlarge text with page_text, update indexes.
+
+    Args:
+        page_text (String): page text from wikipedia API
+        original_text (String): original snippet text
+        indexes (List of Tuples): result by function 'annotate_snippet'
+
+    Returns:
+        page_tokenized_text (List of Tuples): result by function 'tokenize'
+        updated_indexes (List of Tuples): push indexes according to added page_text
+    """
+    # find original_text in page_text
+    paragraph = None
+    found_idx = -1
+    for line in page_text.split("\n"):
+        idx = line.find(original_text)
+        if idx != -1:
+            paragraph = line
+            found_idx = idx
+            break
+    assert paragraph
+
+    # update tokenized text, and indexes
+    page_tokenized_text = tokenize(paragraph)
+    shift = len(tokenize(paragraph[:found_idx]))
+    updated_indexes = [
+        (start_idx + shift, end_idx + shift)
+        for start_idx, end_idx in indexes
+    ]
+    return page_tokenized_text, updated_indexes
+
+
+def chunk(tokenized_text):
+    """Chunk tokenized_text by part-of-speech tags.
+
+    Args:
+        tokenized_text (List of Tuples): result by function 'tokenize'
+
+    Returns:
+        chunked_text (Tree): chunked by 
+            predefined syntax with RegexpParser.
+    """
+    return []
+
+
+def extract(chunked_text, indexes):
+    """Extract information from chunked_text, and determine result. 
+
+    Args:
+        chunked_text (Tree): result by function 'chunk'
+        indexes (List of Tuples): result by function 'annotate_snippet'
+
+    Returns:
+        result (Tuple of Booleans): boolean whether names in indexes
+            are coreferences of pronoun in indexes.
+    """
+    return (True, False)
+
+
+def save(mode, result):
+    """Build result tsv file.
+
+    Args:
+        mode (String): one of snippet, page.
+    
+    Creates:
+        Saves output file in tsv format. 
+        Three columns separated by '\t'.
+    """
+    f = open("CS372_HW5_%s_output_20170305.tsv", 'w')
+    for idx, element in enumerate(result):
+        content = ["development-%d" % (idx+1), "TRUE", "FALSE"]
+        f.write("\t".join(content) + "\n")
+    f.close()
+
+
 def main():
     # get GAP datasets
     development, test, validation = parse_gap()
 
-    # annotate the snippet
+    # get results
+    snippet_results = []
+    page_results = []
     for idx, item in enumerate(test):
+        # annotate the snippet
         tokenized_text, indexes, answer, url = annotate_snippet(item)
-        page_text = get_page_context(url)
-        
+        chunked_text = chunk(tokenized_text)
+        # result = extract(chunked_text, indexes)
+        # snippet_results.append(result)
+
+        # # adjust result with page context
+        # page_text = get_page_context(url)
+        # original_text = item[0]
+        # if not page_text or original_text not in page_text:
+        #     page_results.append(result)
+        #     continue
+        # # find original text and get neighbour texts.
+        # page_tokenized_text, updated_indexes = update_annotation(page_text, original_text, indexes)
+        # chunked_text = chunk(page_tokenized_text)
+        # result = extract(chunked_text, updated_indexes)
+        # page_results.append(result)
+
+    # # save snippet, page results
+    # save("snippet", snippet_results)
+    # save("page", page_results)
+
 
 if __name__ == "__main__":
     main()
