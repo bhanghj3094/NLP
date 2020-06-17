@@ -176,6 +176,22 @@ def chunk(tokenized_text):
         chunked_text (Tree): chunked by 
             predefined syntax with RegexpParser.
     """
+    grammar = nltk.CFG.fromstring("""
+        S -> NP VP
+        NP -> Det Nom | PropN
+        Nom -> Adj Nom | N
+        VP -> V Adj | V NP | V S | V NP PP
+        PP -> P | NP
+        PropN -> NNP | NNPS
+        Det -> DT
+        N -> NN | NNS
+        Adj -> JJ | JJR | JJS
+        V -> VB | VBD
+        P -> IN
+    """)
+    srparser = nltk.ShiftReduceParser(grammar)
+    for e in srparser.parse(tokenized_text):
+        print(e)
     return []
 
 
