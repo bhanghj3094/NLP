@@ -50,68 +50,72 @@ def parse_gap():
 
 
 def tokenize(text):
-    """Returns text tokenized with nltk.
+    """Returns text tokenized as sentences with nltk.
 
-    Split into words, and then annotate with part-of-speech tags.
+    Split into sentences, then words, and annotate with part-of-speech tags.
     """
-    return nltk.pos_tag(nltk.word_tokenize(text))
+    return [
+        nltk.pos_tag(nltk.word_tokenize(sent))
+        for sent in nltk.sent_tokenize(text)
+    ]
 
 
 def annotate_snippet(item):
     """Annotate snippet of pronoun, A, B.
 
     Returns:
-        tokenized_text (List of Tuples): result by function 'tokenize'
+        sentences (List of List): result by function 'tokenize'
         indexes (List of Tuples): Locates the indexes of desired pronoun, 
-            name A, name B of tokenized_text above. Each element is shown as 
-            tuple, with start and end index.
+            name A, name B of sentences above. Each element is shown as 
+            tuple, with sent_index, word_index, and length. 
             [
-                (start_idx, end_idx),  # pronoun
+                (sent_index, word_index, length),  # pronoun
                 ... # name A, name B
             ]
         answer (Tuple of Booleans): whether name A, name B is a reference of the given 
             pronoun. (coreference of name A, coreference of name B)
         url (String): wikipedia url used for getting page context.
     """
-    text, pronoun, pronoun_offset, A, A_offset, A_coref, B, B_offset, B_coref, url = item
+    text, pron, pron_offset, name_a, a_offset, a_coref, name_b, b_offset, b_coref, url = item
 
     # initialize return values
-    tokenized_text = []
+    sentences = tokenize(text)
     indexes = [None, None, None]
-    answer = (A_coref, B_coref)
+    answer = (a_coref == "TRUE", b_coref == "TRUE")
 
-    # sort offsets
-    offsets = [(int(pronoun_offset), "P"), (int(A_offset), "A"), \
-               (int(B_offset), "B"), (len(text), "END")]
-    offsets.sort()
+    # offsets to simple indexes
+    simple_indexes = [
+        len(nltk.word_tokenize(text[:int(pron_offset)])),
+        len(nltk.word_tokenize(text[:int(a_offset)])),
+        len(nltk.word_tokenize(text[:int(b_offset)])),
+    ]
 
-    # divide, tokenize, and join. 
-    recent_offset = 0
-    for offset, word_type in offsets:
-        tokens = tokenize(text[recent_offset:offset])
-        tokenized_text.extend(tokens)
+    # find name A, name B. 
+    index_count = 0
+    for sent_index, sentence in enumerate(sentences):
+        for word_index, word in enumerate(sentence):
 
-        # modify indexes
-        start_idx = len(tokenized_text)
-        if word_type == "P":
-            word_len = len(nltk.word_tokenize(pronoun))
-            indexes[0] = (start_idx, start_idx + word_len)
-        elif word_type == "A":
-            word_len = len(nltk.word_tokenize(A))
-            indexes[1] = (start_idx, start_idx + word_len)
-        elif word_type == "B":
-            word_len = len(nltk.word_tokenize(B))
-            indexes[2] = (start_idx, start_idx + word_len)
-        elif word_type == "END":
-            break
-        else:  # not reached
-            assert False
-        
-        # update recent_offset
-        recent_offset = offset
+            # check if pronoun, name A, or name B.
+            for idx, simple_index in enumerate(simple_indexes):
+                if simple_index == index_count:
+                    word_length = 0
+                    if idx == 0:
+                        word_length = len(nltk.word_tokenize(pron))
+                    elif idx == 1:
+                        word_length = len(nltk.word_tokenize(name_a))
+                    elif idx == 2:
+                        word_length = len(nltk.word_tokenize(name_b))
+                    
+                    # assert word length exists
+                    assert word_length
+                    indexes[idx] = (sent_index, word_index, word_length)
 
+            # update simple index
+            index_count += 1
+
+    # assert indexes are found
     assert indexes[0] and indexes[1] and indexes[2]
-    return tokenized_text, indexes, answer, url
+    return sentences, indexes, answer, url
 
 
 def get_page_context(url):
@@ -142,7 +146,7 @@ def update_annotation(page_text, original_text, indexes):
         indexes (List of Tuples): result by function 'annotate_snippet'
 
     Returns:
-        page_tokenized_text (List of Tuples): result by function 'tokenize'
+        page_sentences (List of Tuples): result by function 'tokenize'
         updated_indexes (List of Tuples): push indexes according to added page_text
     """
     # find original_text in page_text
@@ -160,43 +164,127 @@ def update_annotation(page_text, original_text, indexes):
     page_tokenized_text = tokenize(paragraph)
     shift = len(tokenize(paragraph[:found_idx]))
     updated_indexes = [
-        (start_idx + shift, end_idx + shift)
-        for start_idx, end_idx in indexes
+        (sent_index + shift, word_index, length)
+        for sent_index, word_index, length in indexes
     ]
     return page_tokenized_text, updated_indexes
 
 
-def chunk(tokenized_text):
-    """Chunk tokenized_text by part-of-speech tags.
+def chunk(sentences, indexes):
+    """Chunk each sentence using RegexpParser.
 
     Args:
-        tokenized_text (List of Tuples): result by function 'tokenize'
+        sentences (List of List): result by function 'tokenize'
+        indexes (List of Tuples): result by function 'annotate_snippet'
 
     Returns:
-        chunked_text (Tree): chunked by predefined syntax with RegexpParser.
+        chunked_sentences (Tree): chunked by predefined syntax according 
+            to part-of-speech tags.
+        chunked_indexes (List of Tuples): updated indexes due to chunking.
+            The format changes to ..
+            [
+                (sent_index, tree_index, length),  # pronoun
+                ...  # name A, name B
+            ]
+            tree_index (Tuple): locate start of the word.
     """
     syntax = r"""
-        NP: {<DT|PRP\$>? <JJ.*>*<NN.*>+}
-        VP: {<VB|VBP|VBZ|VBD>}
+        # Conjuctions
+        CONJ: {<RB><,>}
+        # Noun Phrase
+        NP: {<DT|PRP\$>? (<JJ.*><CC>)* <CD|JJ.*|VBG|VBN|RB.?>* <NN.*|VBG|CD|POS|PRP>+  (<\(>(<CC>?<NN.*|JJ>+)+<\)>)?}
+            {<PRP|EX>}
+        # Verb Phrase
+        VP: {<VB|VBP|VBZ|VBD><RB.?>?(<VBN><RB.?>?<IN|TO>)?}
+            }<VBG>{  # chinking
+        # Multiple Noun Phrase
+        MNP: {<NP> (<,><NP>)+ (<,><CC><NP>)}
+             {<NP> (<CC><NP>)?}
+        MNP: {<MNP><MNP>+}
+        # Preposition Phrase
+        INP: {<IN><RB.?>?<MNP>}
+        TOP: {<TO><RB.?>?<MNP|VP>}
+        # Clause
+        CLAUSE: {<MNP|W.*> <RB.?>? <INP|TOP>* <RB.?>? <VP> <RB.?>? <MNP>* <RB.?>? <INP|TOP>* <RB.?>? (<CC|,>? <RB.?>? <VP><MNP>* <RB.?>? <INP|TOP>* <RB.?>?)*}
+        # How to distinguish preposition and subordinating conjunction?
+        # That Phrase
+        THATP: {<THAT><CLAUSE>}
+        # Whether Phrase
+        WHETHERP: {<WHETHER><CLAUSE>}
     """
     # chunker
     parse_chunker = nltk.RegexpParser(syntax, loop=2)
 
-    # filter tags
-    tagged = [ (word, tag)
-        for word, tag in tokenized_text
-        if not re.match(r"RB.*", tag)  # remove adverbs
-        if not re.match(r"MD", tag)  # remove modals
-    ]
-    return parse_chunker.parse(tagged)
+    # separate into sentences
+    chunked_sentences = []
+    for sentence in sentences:
+        # filter tags
+        filtered = [(word, tag)
+            for word, tag in sentence
+            if not re.match(r"RB.*", tag)  # remove adverbs
+            if not re.match(r"MD", tag)  # remove modals
+        ]
+        chunked_sentence = parse_chunker.parse(filtered)
+        chunked_sentences.append(chunked_sentence)
+
+    # locate indexes..
+    def find_index(tree, count):
+        """Find index of word count.
+
+        Args:
+            tree (Tree): tree-like structure by RegexpParser.
+            count (Integer): smaller than number of leaves in tree.
+
+        Returns:
+            tree_index (Tuple): index of specific leaf in tree.
+                ex. (0, 1) - first branch's second leaf.
+        """
+        curr = 0
+        for idx, element in enumerate(tree):
+            try:
+                element.label()
+            except AttributeError:
+                if curr == count:
+                    return (idx, )
+                curr += 1
+            else:
+                elem_count = word_count(element)
+                if count <= curr + (elem_count - 1):
+                    recursive_index = find_index(element, count - curr)
+                    return (idx, *recursive_index)
+                curr += elem_count
+        assert False  # not reached
+
+    chunked_indexes = []
+    for sent_index, word_index, length in indexes:
+        tree_index = find_index(chunked_sentences[sent_index], word_index)
+        chunked_indexes.append((sent_index, tree_index, length))
+    return chunked_sentences, chunked_indexes
 
 
-def extract(chunked_text, indexes):
-    """Extract information from chunked_text, and determine result. 
+def word_count(tree):
+    """Count number of words in tree.
+    
+    Returns:
+        count (Integer): number of words.
+    """
+    count = 0
+    for element in tree:
+        try:
+            element.label()
+        except AttributeError: # leaf
+            count += 1
+        else: # branch
+            count += word_count(element)
+    return count
+
+
+def extract(chunked_sentences, chunked_indexes):
+    """Extract information from chunked_sentences, and determine result. 
 
     Args:
-        chunked_text (Tree): result by function 'chunk'
-        indexes (List of Tuples): result by function 'annotate_snippet'
+        chunked_sentences (Tree): result by function 'chunk'
+        chunked_indexes (List of Tuples): result by function 'chunk'
 
     Returns:
         result (Tuple of Booleans): boolean whether names in indexes
@@ -231,11 +319,28 @@ def main():
     page_results = []
     for idx, item in enumerate(test[:1]):
         # annotate the snippet
-        tokenized_text, indexes, answer, url = annotate_snippet(item)
-        chunked_text = chunk(tokenized_text)
-        print(tokenized_text)
-        print(chunked_text)
-        # result = extract(chunked_text, indexes)
+        sentences, indexes, answer, url = annotate_snippet(item)
+        chunked_sentences, chunked_indexes = chunk(sentences, indexes)
+
+        print("sentences: ", sentences)
+        print("indexes: ", indexes)
+        print("answer: ", answer)
+        for e in chunked_sentences:
+            print(e)
+        print("chunked_indexes: ", chunked_indexes)
+
+        print(item[1], item[3], item[6])
+        for sent, word, length in indexes:
+            print(sentences[sent][word:word+length])
+        for sent, tree, length in chunked_indexes:
+            cs = chunked_sentences[sent]
+            for idx, num in enumerate(tree):
+                if idx == len(tree) - 1:
+                    print(cs[num:num+length])
+                else:
+                    cs = cs[num]
+
+        # result = extract(chunked_sentences, chunked_indexes)
         # snippet_results.append(result)
 
         # # adjust result with page context
@@ -245,9 +350,9 @@ def main():
         #     page_results.append(result)
         #     continue
         # # find original text and get neighbour texts.
-        # page_tokenized_text, updated_indexes = update_annotation(page_text, original_text, indexes)
-        # chunked_text = chunk(page_tokenized_text)
-        # result = extract(chunked_text, updated_indexes)
+        # page_sentences, updated_indexes = update_annotation(page_text, original_text, indexes)
+        # chunked_sentences = chunk(page_sentences)
+        # result = extract(chunked_sentences, updated_indexes)
         # page_results.append(result)
 
     # # save snippet, page results
