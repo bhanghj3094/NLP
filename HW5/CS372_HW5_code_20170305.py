@@ -49,13 +49,32 @@ def parse_gap():
     return development, test, validation
 
 
+def filter(sentence):
+    """Filter given sentence before any processing.
+
+    Args:
+        sentence (List): each sentence from 'tokenize'.
+    
+    Returns:
+        filtered (List): removes elements according to 
+            filter below.
+    """
+    filtered = [(word, tag)
+        for word, tag in sentence
+        if not re.match(r"RB.*", tag)  # remove adverbs
+        if not re.match(r"MD", tag)  # remove modals
+    ]
+    return filtered
+
+
 def tokenize(text):
     """Returns text tokenized as sentences with nltk.
 
-    Split into sentences, then words, and annotate with part-of-speech tags.
+    Split into sentences, then words, and annotate with part-of-speech 
+    tags. Next, each sentence is filtered by 'filter'.
     """
     return [
-        nltk.pos_tag(nltk.word_tokenize(sent))
+        filter(nltk.pos_tag(nltk.word_tokenize(sent)))
         for sent in nltk.sent_tokenize(text)
     ]
 
@@ -85,9 +104,9 @@ def annotate_snippet(item):
 
     # offsets to simple indexes
     simple_indexes = [
-        len(nltk.word_tokenize(text[:int(pron_offset)])),
-        len(nltk.word_tokenize(text[:int(a_offset)])),
-        len(nltk.word_tokenize(text[:int(b_offset)])),
+        sum([len(sent) for sent in tokenize(text[:int(pron_offset)])]),
+        sum([len(sent) for sent in tokenize(text[:int(a_offset)])]),
+        sum([len(sent) for sent in tokenize(text[:int(b_offset)])]),
     ]
 
     # find name A, name B. 
@@ -100,11 +119,11 @@ def annotate_snippet(item):
                 if simple_index == index_count:
                     word_length = 0
                     if idx == 0:
-                        word_length = len(nltk.word_tokenize(pron))
+                        word_length = sum([len(sent) for sent in tokenize(pron)])
                     elif idx == 1:
-                        word_length = len(nltk.word_tokenize(name_a))
+                        word_length = sum([len(sent) for sent in tokenize(name_a)])
                     elif idx == 2:
-                        word_length = len(nltk.word_tokenize(name_b))
+                        word_length = sum([len(sent) for sent in tokenize(name_b)])
                     
                     # assert word length exists
                     assert word_length
@@ -189,28 +208,24 @@ def chunk(sentences, indexes):
             tree_index (Tuple): locate start of the word.
     """
     syntax = r"""
-        # Conjuctions
-        CONJ: {<RB><,>}
         # Noun Phrase
-        NP: {<DT|PRP\$>? (<JJ.*><CC>)* <CD|JJ.*|VBG|VBN|RB.?>* <NN.*|VBG|CD|POS|PRP>+  (<\(>(<CC>?<NN.*|JJ>+)+<\)>)?}
-            {<PRP|EX>}
-        # Verb Phrase
-        VP: {<VB|VBP|VBZ|VBD><RB.?>?(<VBN><RB.?>?<IN|TO>)?}
-            }<VBG>{  # chinking
+        NP: {<NNP><CD><,><CD>}  # Date
+            {<DT|PRP\$>? (<JJ.?><CC>)*<CD|JJ.?>* <NN.?|CD|PRP|POS>+}
+
         # Multiple Noun Phrase
-        MNP: {<NP> (<,><NP>)+ (<,><CC><NP>)}
-             {<NP> (<CC><NP>)?}
-        MNP: {<MNP><MNP>+}
+        MNP: {<NP>*<``><NP><''><NP>*}  # Quotation Mark
+             {<NP><\(><NP><\)>}
+             {<NP> (<,><NP>)+ (<,><CC><NP>)}
+             {<NP> <CC><NP>}
+             {<NP>}
+
         # Preposition Phrase
-        INP: {<IN><RB.?>?<MNP>}
-        TOP: {<TO><RB.?>?<MNP|VP>}
-        # Clause
-        CLAUSE: {<MNP|W.*> <RB.?>? <INP|TOP>* <RB.?>? <VP> <RB.?>? <MNP>* <RB.?>? <INP|TOP>* <RB.?>? (<CC|,>? <RB.?>? <VP><MNP>* <RB.?>? <INP|TOP>* <RB.?>?)*}
-        # How to distinguish preposition and subordinating conjunction?
-        # That Phrase
-        THATP: {<THAT><CLAUSE>}
-        # Whether Phrase
-        WHETHERP: {<WHETHER><CLAUSE>}
+        PP: {<IN><MNP|VP>}
+
+        # Verb Phrase
+        V: {<VBD><VBN><RP>}
+           {<VB.?>}
+        VP: {<V><MNP|PP>+}
     """
     # chunker
     parse_chunker = nltk.RegexpParser(syntax, loop=2)
@@ -218,13 +233,7 @@ def chunk(sentences, indexes):
     # separate into sentences
     chunked_sentences = []
     for sentence in sentences:
-        # filter tags
-        filtered = [(word, tag)
-            for word, tag in sentence
-            if not re.match(r"RB.*", tag)  # remove adverbs
-            if not re.match(r"MD", tag)  # remove modals
-        ]
-        chunked_sentence = parse_chunker.parse(filtered)
+        chunked_sentence = parse_chunker.parse(sentence)
         chunked_sentences.append(chunked_sentence)
 
     # locate indexes..
@@ -317,28 +326,29 @@ def main():
     # get results
     snippet_results = []
     page_results = []
-    for idx, item in enumerate(test[:1]):
+    for idx, item in enumerate(test[1:2]):
         # annotate the snippet
         sentences, indexes, answer, url = annotate_snippet(item)
         chunked_sentences, chunked_indexes = chunk(sentences, indexes)
 
-        print("sentences: ", sentences)
-        print("indexes: ", indexes)
-        print("answer: ", answer)
+        # print("sentences: ", sentences)
+        # print("indexes: ", indexes)
+        # print("answer: ", answer)
+        print("Raw text: ", item[0])
         for e in chunked_sentences:
             print(e)
-        print("chunked_indexes: ", chunked_indexes)
+        # print("chunked_indexes: ", chunked_indexes)
 
-        print(item[1], item[3], item[6])
-        for sent, word, length in indexes:
-            print(sentences[sent][word:word+length])
-        for sent, tree, length in chunked_indexes:
-            cs = chunked_sentences[sent]
-            for idx, num in enumerate(tree):
-                if idx == len(tree) - 1:
-                    print(cs[num:num+length])
-                else:
-                    cs = cs[num]
+        # print(item[1], item[3], item[6])
+        # for sent, word, length in indexes:
+        #     print(sentences[sent][word:word+length])
+        # for sent, tree, length in chunked_indexes:
+        #     cs = chunked_sentences[sent]
+        #     for idx, num in enumerate(tree):
+        #         if idx == len(tree) - 1:
+        #             print(cs[num:num+length])
+        #         else:
+        #             cs = cs[num]
 
         # result = extract(chunked_sentences, chunked_indexes)
         # snippet_results.append(result)
