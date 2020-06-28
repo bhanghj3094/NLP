@@ -1,5 +1,6 @@
 import nltk, re, wikipediaapi
 from nltk.tree import Tree
+from nltk.corpus import names
 from collections import deque
 from pprint import pprint
 
@@ -381,6 +382,76 @@ def breadth_first_search(sentences, path, limit = None, get_first = False, right
     return None
 
 
+def valid(candidate, pronoun):
+    """Checks if candidate is valid. 
+
+    A valid candidate should be not NULL,
+    should not contain pronoun, match right sex.
+
+    Args:
+        candidate (Tree): extracted candidate from function
+            'breadth_first_search'
+        pronoun (String): the pronoun we want to check for.
+
+    Returns:
+        is_valid (Boolean)
+    """
+    def has_pronoun(tree):
+        """Returns true if tree contains pronoun."""
+        for elem in tree:
+            try:
+                elem.label()
+                if has_pronoun(elem): 
+                    return True
+            except AttributeError:
+                if re.match(r"PRP.?", elem[1]):
+                    return True
+        return False
+    
+    def match_sex(candidate, pronoun):
+        """Returns true if match sex."""
+
+        def tree_to_list(tree):
+            """Returns tree modified to list."""
+            answer = []
+            for elem in tree:
+                try:
+                    elem.label()
+                    answer.extend(tree_to_list(elem))
+                except AttributeError:
+                    answer.append(elem[0])
+            return answer
+
+        def get_sex(tree):
+            """Return sex if exists. If nothing, return None."""
+            m = [name.lower() for name in names.words('male.txt')]
+            f = [name.lower() for name in names.words('female.txt')]
+            for e in tree_to_list(tree):
+                if e in m: return "m"
+                if e in f: return "f"
+            return None
+
+        pronoun_sex = {
+            'her': "f",
+            'hers': "f", 
+            'he': "m", 
+            'him': "m", 
+            'she': "f", 
+            'his': "m"
+        }
+        # print(pronoun, candidate)
+        candidate_sex = get_sex(candidate)
+        pronoun = pronoun.lower()
+        if not candidate_sex or pronoun_sex.get(pronoun, "-") == candidate_sex:
+            return True
+        return False
+
+    if not candidate or has_pronoun(candidate) or \
+       not match_sex(candidate, pronoun):
+        return False
+    return True
+
+
 def hobbs_algorithm(chunked_sentences, sent_tree_index):
     """Search by Hobb's algorithm.
 
@@ -400,13 +471,13 @@ def hobbs_algorithm(chunked_sentences, sent_tree_index):
     path, index = find_s_mnp(chunked_sentences, sent_tree_index[:])
     candidate = breadth_first_search(chunked_sentences, path[-1], sent_tree_index[len(index):])
     
-    while not candidate:
+    while not valid(candidate, pronoun):
         # Step 4
         if len(index) == 1:
             if index[0] == 0: break
             index = (index[0]-1,)
             candidate = breadth_first_search(chunked_sentences, index, get_first = True)
-            if candidate: break
+            if valid(candidate, pronoun): break
             continue
 
         # Step 5
@@ -415,20 +486,19 @@ def hobbs_algorithm(chunked_sentences, sent_tree_index):
         # Step 6
         if traverse(chunked_sentences, index)[0].label() == "MNP":
             candidate = breadth_first_search(chunked_sentences, index, get_first = True)
-            if candidate: break
+            if valid(candidate, pronoun): break
 
         # Step 7
         candidate = breadth_first_search(chunked_sentences, index, get_first = True)
-        if candidate: break
+        if valid(candidate, pronoun): break
 
         # Step 8
         if traverse(chunked_sentences, index)[0].label() == "S":
             candidate = breadth_first_search(chunked_sentences, index, right = True)
-            if candidate: break
+            if valid(candidate, pronoun): break
 
     # print("hobbs candidate:", candidate)
     return candidate
-    # return Tree('NP', [('Dehner', 'NNP'), ("'s", 'POS'), ('uncles', 'NNS')])
 
 
 def extract(chunked_sentences, chunked_indexes):
@@ -498,9 +568,11 @@ def save(mode, result):
         Saves output file in tsv format. 
         Three columns separated by '\t'.
     """
-    f = open("CS372_HW5_%s_output_20170305.tsv", 'w')
+    f = open("CS372_HW5_%s_output_20170305.tsv" % mode, 'w')
     for idx, element in enumerate(result):
-        content = ["development-%d" % (idx+1), "TRUE", "FALSE"]
+        left = "TRUE" if element[0] else "FALSE"
+        right = "TRUE" if element[1] else "FALSE"
+        content = ["test-%d" % (idx+1), left, right]
         f.write("\t".join(content) + "\n")
     f.close()
 
@@ -523,9 +595,9 @@ def main():
         # print("sentences: ", sentences)
         # print("indexes: ", indexes)
         # print("answer: ", answer)
-        print("Raw text: ", item[0])
-        for e in chunked_sentences:
-            print(e)
+        # print("Raw text: ", item[0])
+        # for e in chunked_sentences:
+        #     print(e)
         # print("chunked_indexes: ", chunked_indexes)
 
         # print(item[1] + ",", item[3] + ",", item[6])
@@ -548,7 +620,7 @@ def main():
             print("Wrong")
         print("(%d) Percentage: %5.2f" % (idx, count / (idx + 1)))
 
-        # snippet_results.append(result)
+        snippet_results.append(result)
 
         # # adjust result with page context
         # page_text = get_page_context(url)
@@ -558,12 +630,12 @@ def main():
         #     continue
         # # find original text and get neighbour texts.
         # page_sentences, updated_indexes = update_annotation(page_text, original_text, indexes)
-        # chunked_sentences = chunk(page_sentences)
-        # result = extract(chunked_sentences, updated_indexes)
+        # chunked_sentences, chunked_indexes = chunk(page_sentences, updated_indexes)
+        # result = extract(chunked_sentences, chunked_indexes)
         # page_results.append(result)
 
-    # # save snippet, page results
-    # save("snippet", snippet_results)
+    # save snippet, page results
+    save("snippet", snippet_results)
     # save("page", page_results)
 
 
