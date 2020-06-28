@@ -587,7 +587,26 @@ def main():
 
     count = 0
 
+    # 
+    # f = open("page-context.tsv", 'r')
+    # text = f.read()
+    # _list = text.split('\t\t\t')
+    # print(_list)
+    # print(len(_list))
+    # f.close()
+    # return
+
+    # page_contexts
+    page_contexts = []
+
     for idx, item in enumerate(test[:]):
+        print(idx)
+        page_text = get_page_context(item[9])
+        page_contexts.append(page_text)
+        # if idx >= 10: break
+        continue
+
+
         # annotate the snippet
         sentences, indexes, answer, url = annotate_snippet(item)
         chunked_sentences, chunked_indexes = chunk(sentences, indexes)
@@ -622,21 +641,26 @@ def main():
 
         snippet_results.append(result)
 
-        # # adjust result with page context
-        # page_text = get_page_context(url)
-        # original_text = item[0]
-        # if not page_text or original_text not in page_text:
-        #     page_results.append(result)
-        #     continue
-        # # find original text and get neighbour texts.
-        # page_sentences, updated_indexes = update_annotation(page_text, original_text, indexes)
-        # chunked_sentences, chunked_indexes = chunk(page_sentences, updated_indexes)
-        # result = extract(chunked_sentences, chunked_indexes)
-        # page_results.append(result)
+        # adjust result with page context
+        page_text = get_page_context(url)
+        original_text = item[0]
+        if not page_text or original_text not in page_text:
+            page_results.append(result)
+            continue
+        # find original text and get neighbour texts.
+        page_sentences, updated_indexes = update_annotation(page_text, original_text, indexes)
+        chunked_sentences, chunked_indexes = chunk(page_sentences, updated_indexes)
+        result = extract(chunked_sentences, chunked_indexes)
+        page_results.append(result)
 
     # save snippet, page results
-    save("snippet", snippet_results)
+    # save("snippet", snippet_results)
     # save("page", page_results)
+
+    # save page contexts
+    f = open("page-context.tsv", 'w')
+    f.write("\t\t\t".join(page_contexts) + "\n")
+    f.close()
 
 
 if __name__ == "__main__":
