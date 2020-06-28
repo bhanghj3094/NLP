@@ -1,6 +1,6 @@
 # python
 venv/
-*/pycache/*
+__pycache__/
 
 # materials
 *.pdf
