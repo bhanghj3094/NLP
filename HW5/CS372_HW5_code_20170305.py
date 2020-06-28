@@ -295,6 +295,142 @@ def word_count(tree):
     return count
 
 
+def traverse(tree, index, length = 1):
+    """Traverse tree for index. 
+    
+    This function do not checks for faulty input. Only valid 
+    inputs are required. 
+    Returns node of length at index.
+    """
+    for idx, num in enumerate(index):
+        if idx == len(index) - 1:
+            return tree[num:num+length]
+        else:
+            tree = tree[num]
+
+
+def find_s_mnp(sentences, index):
+    """Find nearest MNP, or S.
+
+    Args:
+        sentences (List of Tree): list of sentence tree 'S'.
+        index (List): list of numbers, which is index of sentences.
+
+    Returns:
+        path (List): list of visited index.
+        index (List): equal to description above.
+    """
+    path = [index]
+    skipped_first = False
+    while True:
+        index = index[:-1]
+        path.append(index)
+        # break on encountering s or mnp. 
+        element = sentences[:]
+        for i in index:
+            element = element[i]
+        if element.label() == "S": break
+        if element.label() == "MNP":
+            if skipped_first: break
+            skipped_first = True
+    return path, index
+
+
+def breadth_first_search(sentences, path, limit = None, get_first = False, right = False):
+    """Breadth-first search of sentences.
+
+    Args:
+        sentences (List of Tree): list of sentence Tree 'S'.
+        path (List): list of index to start with.
+        limit (List): righthand limit to not cross.
+    
+    Returns:
+        candidate (Tree): second-mnp from the search.
+            If not found, return as None.
+    """
+    def is_part_of(tuple_a, tuple_b):
+        """Returns if tuple_a is part of tuple_b."""
+        if len(tuple_a) > len(tuple_b): return False
+        for idx, elem in enumerate(tuple_a):
+            if not elem == tuple_b[idx]:
+                return False
+        return True
+
+    encountered_mnp = True if get_first else False
+    curr = tuple()
+    root = traverse(sentences, path)[0]
+    if right: root = root[::-1]
+    # search
+    queue = deque([])
+    queue.append((root, curr))
+    while queue:
+        node, curr = queue.pop()
+        if right: node = node[::-1]
+        for idx, elem in enumerate(node):
+            try:
+                if limit and (*curr, idx) >= limit: 
+                    continue
+                if elem.label() == "MNP" and (not limit or is_part_of((*curr, idx), limit)):
+                    if encountered_mnp:
+                        return elem
+                    else:
+                        encountered_mnp = True
+                queue.append((elem, (*curr, idx)))
+            except AttributeError:
+                pass
+    return None
+
+
+def hobbs_algorithm(chunked_sentences, sent_tree_index):
+    """Search by Hobb's algorithm.
+
+    Args:
+        chunked_sentences (Tree): result by function 'chunk', 
+            input from function 'extract'.
+        sent_tree_index (Tuple): sent_index, tree_index combined.
+
+    Returns:
+        coreference (Tree): MNP phrase found as coreference.
+    """
+    # find pronoun
+    node = traverse(chunked_sentences[:], sent_tree_index)
+    pronoun = node[0][0]
+
+    # find path, and candidate
+    path, index = find_s_mnp(chunked_sentences, sent_tree_index[:])
+    candidate = breadth_first_search(chunked_sentences, path[-1], sent_tree_index[len(index):])
+    
+    while not candidate:
+        # Step 4
+        if len(index) == 1:
+            if index[0] == 0: break
+            index = (index[0]-1,)
+            candidate = breadth_first_search(chunked_sentences, index, get_first = True)
+            if candidate: break
+            continue
+
+        # Step 5
+        path, index = find_s_mnp(chunked_sentences, index)
+
+        # Step 6
+        if traverse(chunked_sentences, index)[0].label() == "MNP":
+            candidate = breadth_first_search(chunked_sentences, index, get_first = True)
+            if candidate: break
+
+        # Step 7
+        candidate = breadth_first_search(chunked_sentences, index, get_first = True)
+        if candidate: break
+
+        # Step 8
+        if traverse(chunked_sentences, index)[0].label() == "S":
+            candidate = breadth_first_search(chunked_sentences, index, right = True)
+            if candidate: break
+
+    # print("hobbs candidate:", candidate)
+    return candidate
+    # return Tree('NP', [('Dehner', 'NNP'), ("'s", 'POS'), ('uncles', 'NNS')])
+
+
 def extract(chunked_sentences, chunked_indexes):
     """Extract information from chunked_sentences, and determine result. 
 
