@@ -495,7 +495,7 @@ def hobbs_algorithm(chunked_sentences, sent_tree_index):
             candidate = breadth_first_search(chunked_sentences, index, right = True)
             if valid(candidate, pronoun): break
 
-    # print("hobbs candidate:", candidate)
+    print("hobbs candidate:", candidate)
     return candidate
 
 
@@ -592,7 +592,7 @@ def main():
     page_contexts = page_contexts[:615] + ["".join(page_contexts[615:617])] + page_contexts[617:]
     f.close()
 
-    for idx, item in enumerate(test):
+    for test_idx, item in enumerate(test):
         # # save page contexts
         # page_text = get_page_context(url)
         # page_contexts.add(page_text if page_text else "")
@@ -602,7 +602,8 @@ def main():
         sentences, indexes, answer, url = annotate_snippet(item)
         chunked_sentences, chunked_indexes = chunk(sentences, indexes)
 
-        # assert indexes to return same words as given pronoun, name A and B
+        # # assert indexes to return same words as given pronoun, name A and B
+        # print("text:", item[0])
         # print(item[1] + ",", item[3] + ",", item[6])
         # for sent, word, length in indexes:
         #     print(sentences[sent][word:word+length])
@@ -616,6 +617,9 @@ def main():
 
         result = extract(chunked_sentences, chunked_indexes)
         snippet_results.append(result)
+
+        # print("Answer:", answer)
+        # print("(%d) Correct" % test_idx if result == answer else "(%d) Wrong" % test_idx)
 
         # adjust result with page context
         page_text = page_contexts[idx]
