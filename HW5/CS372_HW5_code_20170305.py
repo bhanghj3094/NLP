@@ -1,4 +1,6 @@
 import nltk, re, wikipediaapi
+from nltk.tree import Tree
+from collections import deque
 from pprint import pprint
 
 
@@ -61,8 +63,8 @@ def filter(sentence):
     """
     filtered = [(word, tag)
         for word, tag in sentence
-        if not re.match(r"RB.*", tag)  # remove adverbs
-        if not re.match(r"MD", tag)  # remove modals
+        # if not re.match(r"RB.*", tag)  # remove adverbs
+        # if not re.match(r"MD", tag)  # remove modals
     ]
     return filtered
 
@@ -210,22 +212,27 @@ def chunk(sentences, indexes):
     syntax = r"""
         # Noun Phrase
         NP: {<NNP><CD><,><CD>}  # Date
-            {<DT|PRP\$>? (<JJ.?><CC>)*<CD|JJ.?>* <NN.?|CD|PRP|POS>+}
+            {<DT|PRP\$>? (<JJ.?><CC>)*<CD|JJ.?|RB.?>* <NN.?|CD|PRP>+}
 
         # Multiple Noun Phrase
         MNP: {<NP>*<``><NP><''><NP>*}  # Quotation Mark
              {<NP><\(><NP><\)>}
              {<NP> (<,><NP>)+ (<,><CC><NP>)}
              {<NP> <CC><NP>}
+             {<NP><POS>}
+        MNP: {<MNP><NP>}  # for joining those with POS
              {<NP>}
 
         # Preposition Phrase
-        PP: {<IN><MNP|VP>}
+        PP: {<IN> <RB.?>* <MNP|VP> <RB.?>*}
+
+        # To Phrase
+        TP: {<TO> <RB.?>* <MNP|VP> <RB.?>*}
 
         # Verb Phrase
-        V: {<VBD><VBN><RP>}
-           {<VB.?>}
-        VP: {<V><MNP|PP>+}
+        V: {<VBD> <RB.?|MD>* <VBN> <RB.?|MD>* <RP>}
+           {<MD>?<VB.?>}
+        VP: {<V> <RB.?>* <MNP|PP|TP>+}
     """
     # chunker
     parse_chunker = nltk.RegexpParser(syntax, loop=2)
@@ -299,7 +306,50 @@ def extract(chunked_sentences, chunked_indexes):
         result (Tuple of Booleans): boolean whether names in indexes
             are coreferences of pronoun in indexes.
     """
-    return (True, False)
+    sent_index, tree_index, length = chunked_indexes[0]
+
+    # omit length since it's always 1
+    coreference = hobbs_algorithm(chunked_sentences, (sent_index, *tree_index))
+
+    # find name_a, name_b
+    name_a, name_b = "", ""
+    sent_index_a, tree_index_a, length_a = chunked_indexes[1]
+    sent_index_b, tree_index_b, length_b = chunked_indexes[2]
+    name_a = traverse(chunked_sentences[sent_index_a], tree_index_a, length_a)
+    name_b = traverse(chunked_sentences[sent_index_b], tree_index_b, length_b)
+
+    def get_text(t):
+        words = []
+        for elem in t:
+            try:
+                elem.label()
+                words.append(get_text(elem))
+            except AttributeError:
+                words.append(elem[0])
+        return join(words)
+    
+    def join(words):
+        answer = ""
+        prev_was_open_braket = False
+        for idx, word in enumerate(words):
+            if word in [')', ',', '.', "'s"]:
+                answer += word
+            elif word in ['(']:
+                prev_was_open_braket = True
+                answer += " " + word
+            else:
+                if idx == 0:
+                    answer += word
+                elif prev_was_open_braket:
+                    answer += word
+                    prev_was_open_braket = False
+                else:
+                    answer += " " + word
+        return answer
+
+    if not coreference: return (False, False)
+    coref = get_text(coreference)
+    return (get_text(name_a) in coref, get_text(name_b) in coref)
 
 
 def save(mode, result):
@@ -326,7 +376,10 @@ def main():
     # get results
     snippet_results = []
     page_results = []
-    for idx, item in enumerate(test[1:2]):
+
+    count = 0
+
+    for idx, item in enumerate(test[:]):
         # annotate the snippet
         sentences, indexes, answer, url = annotate_snippet(item)
         chunked_sentences, chunked_indexes = chunk(sentences, indexes)
@@ -339,7 +392,7 @@ def main():
             print(e)
         # print("chunked_indexes: ", chunked_indexes)
 
-        # print(item[1], item[3], item[6])
+        # print(item[1] + ",", item[3] + ",", item[6])
         # for sent, word, length in indexes:
         #     print(sentences[sent][word:word+length])
         # for sent, tree, length in chunked_indexes:
@@ -350,7 +403,15 @@ def main():
         #         else:
         #             cs = cs[num]
 
-        # result = extract(chunked_sentences, chunked_indexes)
+        result = extract(chunked_sentences, chunked_indexes)
+
+        if result == answer:
+            print("Correct!")
+            count += 1
+        else:
+            print("Wrong")
+        print("(%d) Percentage: %5.2f" % (idx, count / (idx + 1)))
+
         # snippet_results.append(result)
 
         # # adjust result with page context
