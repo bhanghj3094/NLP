@@ -214,7 +214,6 @@ def chunk(sentences, indexes):
         # Noun Phrase
         NP: {<NNP><CD><,><CD>}  # Date
             {<DT|PRP\$>? (<JJ.?><CC>)*<CD|JJ.?|RB.?>* <NN.?|CD|PRP>+}
-
         # Multiple Noun Phrase
         MNP: {<NP>*<``><NP><''><NP>*}  # Quotation Mark
              {<NP><\(><NP><\)>}
@@ -223,17 +222,16 @@ def chunk(sentences, indexes):
              {<NP><POS>}
         MNP: {<MNP><NP>}  # for joining those with POS
              {<NP>}
-
         # Preposition Phrase
         PP: {<IN> <RB.?>* <MNP|VP> <RB.?>*}
-
         # To Phrase
         TP: {<TO> <RB.?>* <MNP|VP> <RB.?>*}
-
         # Verb Phrase
         V: {<VBD> <RB.?|MD>* <VBN> <RB.?|MD>* <RP>}
            {<MD>?<VB.?>}
         VP: {<V> <RB.?>* <MNP|PP|TP>+}
+        # Sentence
+        # S {<MNP> <PP|TP>* <VP>}
     """
     # chunker
     parse_chunker = nltk.RegexpParser(syntax, loop=2)
@@ -555,7 +553,10 @@ def extract(chunked_sentences, chunked_indexes):
 
     if not coreference: return (False, False)
     coref = get_text(coreference)
-    return (get_text(name_a) in coref, get_text(name_b) in coref)
+    result_a = get_text(name_a) in coref
+    result_b = get_text(name_b) in coref
+    if not result_a and not result_b: return (False, True)
+    return (result_a, result_b)
 
 
 def save(mode, result):
@@ -585,40 +586,23 @@ def main():
     snippet_results = []
     page_results = []
 
-    count = 0
-
-    # 
-    # f = open("page-context.tsv", 'r')
-    # text = f.read()
-    # _list = text.split('\t\t\t')
-    # print(_list)
-    # print(len(_list))
-    # f.close()
-    # return
-
     # page_contexts
-    page_contexts = []
+    f = open("CS372_HW5_local_file_1_20170305.tsv", 'r')
+    page_contexts = f.read().split('\t\t\t')
+    page_contexts = page_contexts[:615] + ["".join(page_contexts[615:617])] + page_contexts[617:]
+    f.close()
 
-    for idx, item in enumerate(test[:]):
-        print(idx)
-        page_text = get_page_context(item[9])
-        page_contexts.append(page_text)
-        # if idx >= 10: break
-        continue
-
+    for idx, item in enumerate(test):
+        # # save page contexts
+        # page_text = get_page_context(url)
+        # page_contexts.add(page_text if page_text else "")
+        # continue
 
         # annotate the snippet
         sentences, indexes, answer, url = annotate_snippet(item)
         chunked_sentences, chunked_indexes = chunk(sentences, indexes)
 
-        # print("sentences: ", sentences)
-        # print("indexes: ", indexes)
-        # print("answer: ", answer)
-        # print("Raw text: ", item[0])
-        # for e in chunked_sentences:
-        #     print(e)
-        # print("chunked_indexes: ", chunked_indexes)
-
+        # assert indexes to return same words as given pronoun, name A and B
         # print(item[1] + ",", item[3] + ",", item[6])
         # for sent, word, length in indexes:
         #     print(sentences[sent][word:word+length])
@@ -631,36 +615,37 @@ def main():
         #             cs = cs[num]
 
         result = extract(chunked_sentences, chunked_indexes)
-
-        if result == answer:
-            print("Correct!")
-            count += 1
-        else:
-            print("Wrong")
-        print("(%d) Percentage: %5.2f" % (idx, count / (idx + 1)))
-
         snippet_results.append(result)
 
         # adjust result with page context
-        page_text = get_page_context(url)
+        page_text = page_contexts[idx]
         original_text = item[0]
         if not page_text or original_text not in page_text:
             page_results.append(result)
             continue
+
         # find original text and get neighbour texts.
         page_sentences, updated_indexes = update_annotation(page_text, original_text, indexes)
+        # check if invalid..
+        invalid = False
+        for sent in sentences:
+            if not sent in page_sentences:
+                invalid = True
+        if invalid:
+            page_results.append(result)
+            continue
         chunked_sentences, chunked_indexes = chunk(page_sentences, updated_indexes)
         result = extract(chunked_sentences, chunked_indexes)
         page_results.append(result)
 
     # save snippet, page results
-    # save("snippet", snippet_results)
-    # save("page", page_results)
+    save("snippet", snippet_results)
+    save("page", page_results)
 
-    # save page contexts
-    f = open("page-context.tsv", 'w')
-    f.write("\t\t\t".join(page_contexts) + "\n")
-    f.close()
+    # # save page contexts
+    # f = open("page-context.tsv", 'w')
+    # f.write("\t\t\t".join(page_contexts) + "\n")
+    # f.close()
 
 
 if __name__ == "__main__":
