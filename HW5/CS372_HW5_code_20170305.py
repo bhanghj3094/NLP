@@ -495,7 +495,7 @@ def hobbs_algorithm(chunked_sentences, sent_tree_index):
             candidate = breadth_first_search(chunked_sentences, index, right = True)
             if valid(candidate, pronoun): break
 
-    # print("hobbs candidate:", candidate)
+    print("hobbs candidate:", candidate)
     return candidate
 
 
