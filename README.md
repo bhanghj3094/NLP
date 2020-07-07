@@ -44,7 +44,7 @@ For example,
 
 ### HW4
 
-Extract relations from MEDLINE database. *<X, ACTION, Y>*  
+Extract relations from [MEDLINE database](https://pubmed.ncbi.nlm.nih.gov/). *<X, ACTION, Y>*  
 Collect 100 sentences with annotated relations.  
 Use 80 sentences to train, test module with remaining 20 sentences. 
 
@@ -75,3 +75,9 @@ For example,
 ## Environments
 
 Refer to how to setup [here](./setup).
+
+## Other References
+
+> [NLTK Wordnet](https://frhyme.github.io/python-lib/nltk-wordnet/)  
+> [Part-of-speech Tagging](https://medium.com/@muddaprince456/categorizing-and-pos-tagging-with-nltk-python-28f2bc9312c3)
+
